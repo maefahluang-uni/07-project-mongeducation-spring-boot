@@ -18,6 +18,7 @@
 	
 	<modules>
 		<module>naming-server</module>
+		<module>mong-bank-microservice</module>
 	</modules>
 	
 	<dependencies>
