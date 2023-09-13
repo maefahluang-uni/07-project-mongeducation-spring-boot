@@ -8,7 +8,7 @@
 		<version>2.5.0</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>th.microservice</groupId>
+	<groupId>spring.edu</groupId>
 	<artifactId>naming-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<description>Eureka Server for naming service</description>
