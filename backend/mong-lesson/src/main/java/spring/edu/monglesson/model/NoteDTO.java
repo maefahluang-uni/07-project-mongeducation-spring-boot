@@ -3,15 +3,17 @@ package spring.edu.monglesson.model;
 public class NoteDTO {
     private Long id;
     private String name;
+    private String noteSource;
     private Lesson lesson;
 
     public NoteDTO() {
 
     }
 
-    public NoteDTO(Long id, String name, Lesson lesson) {
+    public NoteDTO(Long id, String name, String noteSource, Lesson lesson) {
         this.id = id;
         this.name = name;
+        this.noteSource = noteSource;
         this.lesson = lesson;
     }
 
@@ -29,6 +31,14 @@ public class NoteDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNoteSource() {
+        return noteSource;
+    }
+
+    public void setNoteSource(String noteSource) {
+        this.noteSource = noteSource;
     }
 
     public Lesson getLesson() {

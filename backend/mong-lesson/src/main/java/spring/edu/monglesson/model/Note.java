@@ -15,6 +15,7 @@ public class Note {
     private Long id;
 
     private String name;
+    private String noteSource;
 
     @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "lessonID")
@@ -24,10 +25,12 @@ public class Note {
 
     }
 
-    public Note(Long id, String name, Lesson lesson) {
+    public Note(Long id, String name, String noteSource, Lesson lesson) {
         this.id = id;
         this.name = name;
+        this.noteSource = noteSource;
         this.lesson = lesson;
+
     }
 
     public Long getId() {
@@ -44,6 +47,14 @@ public class Note {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getNoteSource() {
+        return noteSource;
+    }
+
+    public void setNoteSource(String noteSource) {
+        this.noteSource = noteSource;
     }
 
     public Lesson getLesson() {
