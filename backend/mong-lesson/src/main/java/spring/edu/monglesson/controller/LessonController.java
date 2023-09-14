@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import spring.edu.monglesson.ServerMapper;
 import spring.edu.monglesson.model.Lesson;
+import spring.edu.monglesson.model.LessonDTO;
 import spring.edu.monglesson.repository.LessonRepository;
 
 @RestController
@@ -26,10 +28,14 @@ public class LessonController {
     private LessonRepository lessonRepository;
     private KafkaTemplate<String, Lesson> kafkaTemplate;
 
+    private ServerMapper serverMapper;
+
+
     @Autowired
-    public LessonController(LessonRepository lessonRepository, KafkaTemplate<String, Lesson> kafkaTemplate) {
+    public LessonController(LessonRepository lessonRepository, KafkaTemplate<String, Lesson> kafkaTemplate, ServerMapper serverMapper) {
         this.lessonRepository = lessonRepository;
         this.kafkaTemplate = kafkaTemplate;
+        this.serverMapper = serverMapper;
     }
 
     @GetMapping
@@ -65,20 +71,20 @@ public class LessonController {
         return ResponseEntity.ok("Lesson was updated");
     }
 
-    // @PatchMapping("/{id}")
-    // public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody StudentDTO studentDto) {
-    //     Optional<Lesson> optLesson = lessonRepository.findById(id);
+    @PatchMapping("/{id}")
+    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody LessonDTO lessonDTO) {
+        Optional<Lesson> optLesson = lessonRepository.findById(id);
 
-    //     if (!optLesson.isPresent()) {
-    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found.");
-    //     }
+        if (!optLesson.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
+        }
 
-    //     Lesson lesson = optLesson.get();
-    //     serverMapper.updateStudentFromDto(studentDto, student);
-    //     studentRepository.save(student);
+        Lesson lesson = optLesson.get();
+        serverMapper.updateLessonFromDto(lessonDTO, lesson);
+        lessonRepository.save(lesson);
 
-    //     return ResponseEntity.ok("student patched.");
-    // }
+        return ResponseEntity.ok("Lesson patched.");
+    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteLesson(@PathVariable Long id) {
