@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import spring.edu.mongcourse.ServerMapper;
+import spring.edu.mongcourse.model.Category;
 import spring.edu.mongcourse.model.Course;
 import spring.edu.mongcourse.model.CourseDTO;
 import spring.edu.mongcourse.repository.CourseRepository;
@@ -32,7 +33,8 @@ public class CourseController {
     private ServerMapper serverMapper;
 
     @Autowired
-    public CourseController(CourseRepository courseRepository, KafkaTemplate<String, Course> kafkaTemplate, ServerMapper serverMapper) {
+    public CourseController(CourseRepository courseRepository, KafkaTemplate<String, Course> kafkaTemplate,
+            ServerMapper serverMapper) {
         this.courseRepository = courseRepository;
         this.kafkaTemplate = kafkaTemplate;
         this.serverMapper = serverMapper;
@@ -45,42 +47,48 @@ public class CourseController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getCourseById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Course>> getCourseById(@PathVariable Long id) {
         Optional<Course> optCourse = courseRepository.findById(id);
         if (!optCourse.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Course is found\n" + optCourse);
+        return ResponseEntity.ok(optCourse);
+    }
+
+    @GetMapping("/category/{category}")
+    public ResponseEntity<List<Course>> getCourseByCategory(@PathVariable Category category) {
+        List<Course> courses = courseRepository.findByCategory(category);
+        return ResponseEntity.ok(courses);
     }
 
     @PostMapping
-    public ResponseEntity<String> createCourse(@RequestBody Course Course) {
-        courseRepository.save(Course);
+    public ResponseEntity<String> createCourse(@RequestBody Course course) {
+        courseRepository.save(course);
         return ResponseEntity.ok("Course was created");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCourse(@PathVariable Long id, @RequestBody Course Course) {
+    public ResponseEntity<String> updateCourse(@PathVariable Long id, @RequestBody Course course) {
         Optional<Course> optCourse = courseRepository.findById(id);
         if (!optCourse.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }
-        Course.setId(id);
-        courseRepository.save(Course);
+        course.setId(id);
+        courseRepository.save(course);
         return ResponseEntity.ok("Course was updated");
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody CourseDTO CourseDTO) {
+    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody CourseDTO courseDTO) {
         Optional<Course> optCourse = courseRepository.findById(id);
 
         if (!optCourse.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }
 
-        Course Course = optCourse.get();
-        serverMapper.updateCourseFromDto(CourseDTO, Course);
-        courseRepository.save(Course);
+        Course course = optCourse.get();
+        serverMapper.updateCourseFromDto(courseDTO, course);
+        courseRepository.save(course);
 
         return ResponseEntity.ok("Course patched.");
     }

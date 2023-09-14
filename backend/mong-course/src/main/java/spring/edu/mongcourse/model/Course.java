@@ -1,31 +1,39 @@
 package spring.edu.mongcourse.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity
 public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     // Teacher
-    // Category
     private String name;
     private String description;
     private double price;
     private int credit;
 
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "categoryID")
+    private Category category;
+
     public Course() {
     }
 
-    public Course(Long id, String name, String description, double price, int credit) {
+    public Course(Long id, String name, String description, double price, int credit, Category category) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.credit = credit;
+        this.category = category;
     }
 
     public Long getId() {
@@ -67,4 +75,13 @@ public class Course {
     public void setCredit(int credit) {
         this.credit = credit;
     }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
 }
