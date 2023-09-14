@@ -18,6 +18,7 @@
 	
 	<modules>
 		<module>naming-server</module>
+		<module>mong-report</module>
 	</modules>
 	
 	<dependencies>
