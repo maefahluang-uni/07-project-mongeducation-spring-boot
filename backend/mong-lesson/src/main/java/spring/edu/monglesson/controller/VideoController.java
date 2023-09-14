@@ -42,55 +42,54 @@ public class VideoController {
 
     @GetMapping
     public ResponseEntity<List<Video>> getAllVideos() {
-        List<Video> Videos = videoRepository.findAll();
-        return ResponseEntity.ok(Videos);
+        List<Video> videos = videoRepository.findAll();
+        return ResponseEntity.ok(videos);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getVideoById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Video>> getVideoById(@PathVariable Long id) {
         Optional<Video> optVideo = videoRepository.findById(id);
         if (!optVideo.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Video not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Video is found\n" + optVideo);
+        return ResponseEntity.ok(optVideo);
     }
 
-    @GetMapping("/{lesson}")
-    public ResponseEntity<String> getVideoById(@PathVariable Lesson lesson) {
-        List<Video> optVideo = videoRepository.findByLesson(lesson);
-        return ResponseEntity.status(HttpStatus.OK).body("Video in " + lesson + "\n" + optVideo);
+    @GetMapping("/lesson/{lesson}")
+    public ResponseEntity<List<Video>> getVideoById(@PathVariable Lesson lesson) {
+        List<Video> videos = videoRepository.findByLesson(lesson);
+        return ResponseEntity.ok(videos);
     }
 
     @PostMapping
-    public ResponseEntity<String> createVideo(@RequestBody Video Video) {
-        videoRepository.save(Video);
+    public ResponseEntity<String> createVideo(@RequestBody Video video) {
+        videoRepository.save(video);
         return ResponseEntity.ok("Video was created");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateVideo(@PathVariable Long id, @RequestBody Video Video) {
+    public ResponseEntity<String> updateVideo(@PathVariable Long id, @RequestBody Video video) {
         Optional<Video> optVideo = videoRepository.findById(id);
         if (!optVideo.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Video not found");
         }
-        Video.setId(id);
-        videoRepository.save(Video);
+        video.setId(id);
+        videoRepository.save(video);
         return ResponseEntity.ok("Video was updated");
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody VideoDTO VideoDTO) {
+    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody VideoDTO videoDTO) {
         Optional<Video> optVideo = videoRepository.findById(id);
 
         if (!optVideo.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Video not found");
         }
 
-        Video Video = optVideo.get();
-        serverMapper.updateVideoFromDto(VideoDTO, Video);
-        videoRepository.save(Video);
-
-        return ResponseEntity.ok("Video patched.");
+        Video video = optVideo.get();
+        serverMapper.updateVideoFromDto(videoDTO, video);
+        videoRepository.save(video);
+        return ResponseEntity.ok("Video patched");
     }
 
     @DeleteMapping("/{id}")

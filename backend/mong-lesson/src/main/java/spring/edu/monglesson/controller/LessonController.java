@@ -45,12 +45,12 @@ public class LessonController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getLessonById(@PathVariable Long id) {
+    public ResponseEntity< Optional<Lesson>> getLessonById(@PathVariable Long id) {
         Optional<Lesson> optLesson = lessonRepository.findById(id);
         if (!optLesson.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Lesson is found\n" + optLesson);
+        return ResponseEntity.ok(optLesson);
     }
 
     @PostMapping

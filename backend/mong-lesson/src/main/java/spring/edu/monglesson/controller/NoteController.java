@@ -42,55 +42,54 @@ public class NoteController {
 
     @GetMapping
     public ResponseEntity<List<Note>> getAllNotes() {
-        List<Note> Notes = noteRepository.findAll();
-        return ResponseEntity.ok(Notes);
+        List<Note> notes = noteRepository.findAll();
+        return ResponseEntity.ok(notes);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<String> getNoteById(@PathVariable Long id) {
+    public ResponseEntity<Optional<Note>> getNoteById(@PathVariable Long id) {
         Optional<Note> optNote = noteRepository.findById(id);
         if (!optNote.isPresent()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
-        return ResponseEntity.status(HttpStatus.OK).body("Note is found\n" + optNote);
+        return ResponseEntity.ok(optNote);
     }
 
-    @GetMapping("/{lesson}")
-    public ResponseEntity<String> getNoteById(@PathVariable Lesson lesson) {
-        List<Note> optNote = noteRepository.findByLesson(lesson);
-        return ResponseEntity.status(HttpStatus.OK).body("Note in " + lesson + "\n" + optNote);
+    @GetMapping("/lesson/{lesson}")
+    public ResponseEntity<List<Note>> getNoteById(@PathVariable Lesson lesson) {
+        List<Note> notes = noteRepository.findByLesson(lesson);
+        return ResponseEntity.ok(notes);
     }
 
     @PostMapping
-    public ResponseEntity<String> createNote(@RequestBody Note Note) {
-        noteRepository.save(Note);
+    public ResponseEntity<String> createNote(@RequestBody Note note) {
+        noteRepository.save(note);
         return ResponseEntity.ok("Note was created");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateNote(@PathVariable Long id, @RequestBody Note Note) {
+    public ResponseEntity<String> updateNote(@PathVariable Long id, @RequestBody Note note) {
         Optional<Note> optNote = noteRepository.findById(id);
         if (!optNote.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
         }
-        Note.setId(id);
-        noteRepository.save(Note);
+        note.setId(id);
+        noteRepository.save(note);
         return ResponseEntity.ok("Note was updated");
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody NoteDTO NoteDTO) {
+    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody NoteDTO noteDTO) {
         Optional<Note> optNote = noteRepository.findById(id);
 
         if (!optNote.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
         }
 
-        Note Note = optNote.get();
-        serverMapper.updateNoteFromDto(NoteDTO, Note);
-        noteRepository.save(Note);
-
-        return ResponseEntity.ok("Note patched.");
+        Note note = optNote.get();
+        serverMapper.updateNoteFromDto(noteDTO, note);
+        noteRepository.save(note);
+        return ResponseEntity.ok("Note patched");
     }
 
     @DeleteMapping("/{id}")
