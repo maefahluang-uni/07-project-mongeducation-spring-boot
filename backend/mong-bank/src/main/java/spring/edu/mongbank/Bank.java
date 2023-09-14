@@ -4,34 +4,34 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+
+import spring.edu.mongteacher.TeacherDomain;
 
 @Entity
 public class Bank {
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    
+    @OneToOne
+    @JoinColumn(name = "userID")
+    private TeacherDomain teacherDomain;
+
     private String name;
     private String bankID;
 
     public Bank(){
         
     }
-    public Bank(Long id, String name, String bankID) {
-        this.id = id;
+    public Bank(String name, String bankID) {
         this.name = name;
         this.bankID = bankID;
     }
-    public Long getId() {
-        return id;
-    }
+
     public String getName() {
         return name;
     }
     public String getBankID() {
         return bankID;
-    }
-    public void setId(Long id) {
-        this.id = id;
     }
     public void setName(String name) {
         this.name = name;

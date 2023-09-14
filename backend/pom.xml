@@ -19,6 +19,7 @@
 	<modules>
 		<module>naming-server</module>
 		<module>mong-bank</module>
+		<module>mong-teacher</module>
 	</modules>
 	
 	<dependencies>
