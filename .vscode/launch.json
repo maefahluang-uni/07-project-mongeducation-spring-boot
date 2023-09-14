@@ -24,5 +24,12 @@
             "mainClass": "spring.edu.mongstudent.MongStudentApplication",
             "projectName": "mong-student"
         },
+        {
+            "type": "java",
+            "name": "ReportMicroServices",
+            "request": "launch",
+            "mainClass": "spring.edu.mongstudent.MongStudentApplication",
+            "projectName": "mong-report"
+        },
     ]
 }
