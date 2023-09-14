@@ -56,7 +56,6 @@ public class LessonController {
     @PostMapping
     public ResponseEntity<String> createLesson(@RequestBody Lesson lesson) {
         lessonRepository.save(lesson);
-        kafkaTemplate.send("lesson", lesson);
         return ResponseEntity.ok("Lesson was created");
     }
 
@@ -93,7 +92,7 @@ public class LessonController {
     }
 
     @DeleteMapping
-    public ResponseEntity<String> deleteAllLesson(@PathVariable Long id) {
+    public ResponseEntity<String> deleteAllLesson() {
         lessonRepository.deleteAll();
         return ResponseEntity.ok("Lesson was Deleted");
     }
