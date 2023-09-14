@@ -18,7 +18,7 @@
 	
 	<modules>
 		<module>naming-server</module>
-		<module>mong-student</module>
+		<module>mong-report</module>
 	</modules>
 	
 	<dependencies>
