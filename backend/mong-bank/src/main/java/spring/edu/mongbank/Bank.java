@@ -7,37 +7,37 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToOne;
 
-import spring.edu.mongteacher.TeacherDomain;
 
 @Entity
 public class Bank {
     
-    @OneToOne
-    @JoinColumn(name = "userID")
-    private TeacherDomain teacherDomain;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private Long id;
 
     private String name;
-    private String bankID;
+    private String bankNum;
+    
 
     public Bank(){
         
     }
-    public Bank(String name, String bankID) {
+    public Bank(String name, String bankNum) {
         this.name = name;
-        this.bankID = bankID;
+        this.bankNum =bankNum;
     }
 
     public String getName() {
         return name;
     }
-    public String getBankID() {
-        return bankID;
+    public String getBankNum() {
+        return bankNum;
     }
     public void setName(String name) {
         this.name = name;
     }
-    public void setBankID(String bankID) {
-        this.bankID = bankID;
+    public void setBankNum(String bankNum) {
+        this.bankNum = bankNum;
     }
 
     
