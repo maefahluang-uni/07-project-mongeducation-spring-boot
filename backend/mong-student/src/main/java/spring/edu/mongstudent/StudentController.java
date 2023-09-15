@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 
+
 @RestController
 public class StudentController {
     
@@ -24,6 +26,9 @@ public class StudentController {
 
     @Autowired
     private ServerMapper serverMapper;
+
+    @Autowired
+    private KafkaTemplate<String, Long> kafkaTemplate;
 
     // non-relational relationship of restful API (classic). 
 
@@ -48,6 +53,7 @@ public class StudentController {
     @PostMapping("/students")
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
         studentRepository.save(student);
+        kafkaTemplate.send("student.regist", student.getId());
         return ResponseEntity.ok("student created.");
     }
 

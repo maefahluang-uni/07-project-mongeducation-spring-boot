@@ -44,12 +44,6 @@ public class ReportController {
         return ResponseEntity.ok(report);
     }
 
-    @PostMapping("/reports")
-    public ResponseEntity<String> createReports(@RequestBody Report report) {
-        reportRepository.save(report);
-        return ResponseEntity.ok("report created.");
-    }
-
     @PutMapping("/reports/{id}")
     public ResponseEntity<String> updateReports(@PathVariable Long id, @RequestBody Report report) {
          if (!reportRepository.existsById(id)) {
@@ -91,4 +85,19 @@ public class ReportController {
         return ResponseEntity.ok("all reports deleted.");
     }
 
+
+    // relational relationship of restful API
+
+    @PostMapping("/reports")
+    public ResponseEntity<String> createReports(String studentId) {
+        if (studentId == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("can't consumed student entity.");
+        }
+        
+        Report report = new Report();
+        report.setStudentId(studentId);
+        
+        reportRepository.save(report);
+        return ResponseEntity.ok("report created.");
+    }
 }
