@@ -21,33 +21,27 @@ import spring.edu.mongcourse.ServerMapper;
 import spring.edu.mongcourse.model.Category;
 import spring.edu.mongcourse.model.CategoryDTO;
 import spring.edu.mongcourse.repository.CategoryRepository;
+import spring.edu.mongcourse.service.CategotyControllerService;
 
 @RestController
 @RequestMapping("/categories")
 public class CategoryController {
-
-    private CategoryRepository categoryRepository;
-    private KafkaTemplate<String, Category> kafkaTemplate;
-
-    private ServerMapper serverMapper;
+    private final CategotyControllerService categotyControllerService;
 
     @Autowired
-    public CategoryController(CategoryRepository categoryRepository, KafkaTemplate<String, Category> kafkaTemplate,
-            ServerMapper serverMapper) {
-        this.categoryRepository = categoryRepository;
-        this.kafkaTemplate = kafkaTemplate;
-        this.serverMapper = serverMapper;
+    public CategoryController(CategotyControllerService categotyControllerService) {
+        this.categotyControllerService = categotyControllerService;
     }
 
     @GetMapping
     public ResponseEntity<List<Category>> getAllCategorys() {
-        List<Category> Categorys = categoryRepository.findAll();
-        return ResponseEntity.ok(Categorys);
+        List<Category> categories = categotyControllerService.getAllCategory();
+        return ResponseEntity.ok(categories);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Optional<Category>> getCategoryById(@PathVariable Long id) {
-        Optional<Category> optCategory = categoryRepository.findById(id);
+        Optional<Category> optCategory = categotyControllerService.getCategoryById(id);
         if (!optCategory.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
         }
@@ -55,46 +49,40 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<String> createCategory(@RequestBody Category category) {
-        categoryRepository.save(category);
+    public ResponseEntity<String> postCategory(@RequestBody Category category) {
+        categotyControllerService.saveCategory(category);
         return ResponseEntity.ok("Category was created");
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<String> updateCategory(@PathVariable Long id, @RequestBody Category category) {
-        Optional<Category> optCategory = categoryRepository.findById(id);
+    public ResponseEntity<String> putCategory(@PathVariable Long id, @RequestBody Category category) {
+        Optional<Category> optCategory = categotyControllerService.getCategoryById(id);
         if (!optCategory.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
         }
-        category.setId(id);
-        categoryRepository.save(category);
+        categotyControllerService.saveCategory(category);
         return ResponseEntity.ok("Category was updated");
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
-        Optional<Category> optCategory = categoryRepository.findById(id);
-
+    public ResponseEntity<String> patchCategory(@PathVariable Long id, @RequestBody CategoryDTO categoryDTO) {
+        Optional<Category> optCategory = categotyControllerService.getCategoryById(id);
         if (!optCategory.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
         }
-
-        Category category = optCategory.get();
-        serverMapper.updateCategoryFromDto(categoryDTO, category);
-        categoryRepository.save(category);
-
+        categotyControllerService.mapperCategory(categoryDTO, optCategory.get());
         return ResponseEntity.ok("Category patched.");
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
-        categoryRepository.deleteById(id);
+        categotyControllerService.deleteCategory(id);
         return ResponseEntity.ok("Category was Deleted");
     }
 
     @DeleteMapping
     public ResponseEntity<String> deleteAllCategory() {
-        categoryRepository.deleteAll();
+        categotyControllerService.deleteAllCategory();
         return ResponseEntity.ok("Category was Deleted");
     }
 }
