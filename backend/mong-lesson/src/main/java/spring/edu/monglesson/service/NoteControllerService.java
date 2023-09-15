@@ -3,6 +3,8 @@ package spring.edu.monglesson.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +17,16 @@ import spring.edu.monglesson.repository.NoteRepository;
 public class NoteControllerService {
     private final NoteRepository noteRepository;
     private ServerMapper serverMapper;
+    LessonControllerService lessonControllerService;
+
+    Logger LOG = LoggerFactory.getLogger(NoteControllerService.class);
 
     @Autowired
-    public NoteControllerService(NoteRepository noteRepository, ServerMapper serverMapper) {
+    public NoteControllerService(NoteRepository noteRepository, ServerMapper serverMapper,
+            LessonControllerService lessonControllerService) {
         this.noteRepository = noteRepository;
         this.serverMapper = serverMapper;
+        this.lessonControllerService = lessonControllerService;
     }
 
     public List<Note> getAllNote() {
@@ -38,6 +45,10 @@ public class NoteControllerService {
     }
 
     public void saveNote(Note note) {
+        if (note.getLessonID() == null || !lessonControllerService.getLessonById(note.getId()).isPresent()) {
+            LOG.info("Can not save. Nust have LessonID");
+            return;
+        }
         noteRepository.save(note);
     }
 

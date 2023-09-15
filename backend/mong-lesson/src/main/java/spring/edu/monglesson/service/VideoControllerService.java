@@ -3,6 +3,8 @@ package spring.edu.monglesson.service;
 import java.util.List;
 import java.util.Optional;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -13,14 +15,18 @@ import spring.edu.monglesson.repository.VideoRepository;
 
 @Service
 public class VideoControllerService {
-
     private final VideoRepository videoRepository;
     private ServerMapper serverMapper;
+    LessonControllerService lessonControllerService;
+
+    Logger LOG = LoggerFactory.getLogger(VideoControllerService.class);
 
     @Autowired
-    public VideoControllerService(VideoRepository videoRepository, ServerMapper serverMapper) {
+    public VideoControllerService(VideoRepository videoRepository, ServerMapper serverMapper,
+            LessonControllerService lessonControllerService) {
         this.videoRepository = videoRepository;
         this.serverMapper = serverMapper;
+        this.lessonControllerService = lessonControllerService;
     }
 
     public List<Video> getAllVideo() {
@@ -39,6 +45,10 @@ public class VideoControllerService {
     }
 
     public void saveVideo(Video video) {
+        if (video.getLessonID() == null || !lessonControllerService.getLessonById(video.getId()).isPresent()) {
+            LOG.info("Can not save. Nust have LessonID");
+            return;
+        }
         videoRepository.save(video);
     }
 
