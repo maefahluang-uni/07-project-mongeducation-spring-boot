@@ -1,24 +1,26 @@
 package spring.edu.mongcourse.model;
 
 public class CourseDTO {
-
     private Long id;
     private String name;
     private String description;
     private double price;
     private int credit;
-    private Category category;
+    private String categoryID;
+    private String teacherID;
 
     public CourseDTO() {
     }
 
-    public CourseDTO(Long id, String name, String description, double price, int credit, Category category) {
+    public CourseDTO(Long id, String name, String description, double price, int credit, String categoryID,
+            String teacherID) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.price = price;
         this.credit = credit;
-        this.category = category;
+        this.categoryID = categoryID;
+        this.teacherID = teacherID;
     }
 
     public Long getId() {
@@ -61,12 +63,20 @@ public class CourseDTO {
         this.credit = credit;
     }
 
-    public Category getCategory() {
-        return category;
+    public String getCategoryID() {
+        return categoryID;
     }
 
-    public void setCategory(Category category) {
-        this.category = category;
+    public void setCategoryID(String categoryID) {
+        this.categoryID = categoryID;
+    }
+
+    public String getTeacherID() {
+        return teacherID;
+    }
+
+    public void setTeacherID(String teacherID) {
+        this.teacherID = teacherID;
     }
 
 }
