@@ -1,12 +1,9 @@
 package spring.edu.monglesson.model;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 
 @Entity
 public class Note {
@@ -17,20 +14,17 @@ public class Note {
     private String name;
     private String noteSource;
 
-    @ManyToOne(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "lessonID")
-    private Lesson lesson;
+    private String lessonID;
 
     public Note() {
 
     }
 
-    public Note(Long id, String name, String noteSource, Lesson lesson) {
+    public Note(Long id, String name, String noteSource, String lessonID) {
         this.id = id;
         this.name = name;
         this.noteSource = noteSource;
-        this.lesson = lesson;
-
+        this.lessonID = lessonID;
     }
 
     public Long getId() {
@@ -57,12 +51,12 @@ public class Note {
         this.noteSource = noteSource;
     }
 
-    public Lesson getLesson() {
-        return lesson;
+    public String getLessonID() {
+        return lessonID;
     }
 
-    public void setLesson(Lesson lesson) {
-        this.lesson = lesson;
+    public void setLessonID(String lessonID) {
+        this.lessonID = lessonID;
     }
 
 }

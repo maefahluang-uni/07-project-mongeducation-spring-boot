@@ -4,15 +4,16 @@ public class LessonDTO {
     private Long id;
 
     private String name;
-    
-    // Course course
+
+    private String courseID;
 
     public LessonDTO() {
     }
 
-    public LessonDTO(Long id, String name) {
+    public LessonDTO(Long id, String name, String courseID) {
         this.id = id;
         this.name = name;
+        this.courseID = courseID;
     }
 
     public Long getId() {
@@ -29,6 +30,14 @@ public class LessonDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
 
 }

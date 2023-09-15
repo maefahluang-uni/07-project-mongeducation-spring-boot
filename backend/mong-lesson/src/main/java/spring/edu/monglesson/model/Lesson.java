@@ -13,15 +13,16 @@ public class Lesson {
 
     private String name;
 
-    // Course course
+    private String courseID;
 
     public Lesson() {
 
     }
 
-    public Lesson(Long id, String name) {
+    public Lesson(Long id, String name, String courseID) {
         this.id = id;
         this.name = name;
+        this.courseID = courseID;
     }
 
     public Long getId() {
@@ -38,6 +39,14 @@ public class Lesson {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getCourseID() {
+        return courseID;
+    }
+
+    public void setCourseID(String courseID) {
+        this.courseID = courseID;
     }
 
 }
