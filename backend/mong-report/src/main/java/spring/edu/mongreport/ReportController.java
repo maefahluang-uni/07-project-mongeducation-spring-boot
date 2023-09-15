@@ -86,7 +86,7 @@ public class ReportController {
     }
 
 
-    // relational relationship of restful API
+    // relational relationship of restful API (classic)
 
     @PostMapping("/reports")
     public ResponseEntity<String> createReports(String studentId) {
