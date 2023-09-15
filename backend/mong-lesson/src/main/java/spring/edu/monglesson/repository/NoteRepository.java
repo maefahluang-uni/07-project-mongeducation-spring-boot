@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.data.repository.CrudRepository;
 
-import spring.edu.monglesson.model.Lesson;
 import spring.edu.monglesson.model.Note;
 
 public interface NoteRepository extends CrudRepository<Note, Long> {
@@ -15,5 +14,5 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
 
     public boolean existsById(Long id);
 
-    public List<Note> findByLesson(Lesson lesson);
+    public List<Note> findByLesson(String lessonID);
 }

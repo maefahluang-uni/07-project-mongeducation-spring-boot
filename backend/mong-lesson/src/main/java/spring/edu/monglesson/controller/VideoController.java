@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -28,15 +27,12 @@ import spring.edu.monglesson.repository.VideoRepository;
 public class VideoController {
 
     private VideoRepository videoRepository;
-    private KafkaTemplate<String, Video> kafkaTemplate;
 
     private ServerMapper serverMapper;
 
     @Autowired
-    public VideoController(VideoRepository videoRepository, KafkaTemplate<String, Video> kafkaTemplate,
-            ServerMapper serverMapper) {
+    public VideoController(VideoRepository videoRepository, ServerMapper serverMapper) {
         this.videoRepository = videoRepository;
-        this.kafkaTemplate = kafkaTemplate;
         this.serverMapper = serverMapper;
     }
 
@@ -55,9 +51,9 @@ public class VideoController {
         return ResponseEntity.ok(optVideo);
     }
 
-    @GetMapping("/lesson/{lesson}")
-    public ResponseEntity<List<Video>> getVideoById(@PathVariable Lesson lesson) {
-        List<Video> videos = videoRepository.findByLesson(lesson);
+    @GetMapping("/lesson/{lessonID}")
+    public ResponseEntity<List<Video>> getVideoById(@PathVariable String lessonID) {
+        List<Video> videos = videoRepository.findByLesson(lessonID);
         return ResponseEntity.ok(videos);
     }
 

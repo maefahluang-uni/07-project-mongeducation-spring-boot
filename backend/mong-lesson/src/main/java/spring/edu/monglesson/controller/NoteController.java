@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -18,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import spring.edu.monglesson.ServerMapper;
-import spring.edu.monglesson.model.Lesson;
+import spring.edu.monglesson.kafka.KafkaService;
 import spring.edu.monglesson.model.Note;
 import spring.edu.monglesson.model.NoteDTO;
 import spring.edu.monglesson.repository.NoteRepository;
@@ -26,17 +25,14 @@ import spring.edu.monglesson.repository.NoteRepository;
 @RestController
 @RequestMapping("/notes")
 public class NoteController {
-
     private NoteRepository noteRepository;
-    private KafkaTemplate<String, Note> kafkaTemplate;
-
+    private KafkaService kafkaService;
     private ServerMapper serverMapper;
 
     @Autowired
-    public NoteController(NoteRepository noteRepository, KafkaTemplate<String, Note> kafkaTemplate,
-            ServerMapper serverMapper) {
+    public NoteController(NoteRepository noteRepository, KafkaService kafkaService, ServerMapper serverMapper) {
         this.noteRepository = noteRepository;
-        this.kafkaTemplate = kafkaTemplate;
+        this.kafkaService = kafkaService;
         this.serverMapper = serverMapper;
     }
 
@@ -55,9 +51,9 @@ public class NoteController {
         return ResponseEntity.ok(optNote);
     }
 
-    @GetMapping("/lesson/{lesson}")
-    public ResponseEntity<List<Note>> getNoteById(@PathVariable Lesson lesson) {
-        List<Note> notes = noteRepository.findByLesson(lesson);
+    @GetMapping("/lesson/{lessonID}")
+    public ResponseEntity<List<Note>> getNoteById(@PathVariable String lessonID) {
+        List<Note> notes = noteRepository.findByLesson(lessonID);
         return ResponseEntity.ok(notes);
     }
 
