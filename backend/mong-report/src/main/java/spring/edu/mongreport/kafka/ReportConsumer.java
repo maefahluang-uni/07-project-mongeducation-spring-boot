@@ -12,6 +12,7 @@ public class ReportConsumer {
     @Autowired
     private ReportController reportController;
 
+    // recieved data from student entity class.
     @KafkaListener (topics = "student.regist")
     void consumeStudentCreateEvent(String studentId) {
         reportController.createReports(studentId);
