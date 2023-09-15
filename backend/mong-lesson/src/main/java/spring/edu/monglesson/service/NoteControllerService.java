@@ -45,7 +45,7 @@ public class NoteControllerService {
     }
 
     public void saveNote(Note note) {
-        if (note.getLessonID() == null || !lessonControllerService.getLessonById(note.getId()).isPresent()) {
+        if (note.getLessonID() == null || !lessonControllerService.getLessonById(Long.parseLong(note.getLessonID())).isPresent()) {
             LOG.info("Can not save. Nust have LessonID");
             return;
         }

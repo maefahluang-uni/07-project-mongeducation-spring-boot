@@ -45,7 +45,7 @@ public class VideoControllerService {
     }
 
     public void saveVideo(Video video) {
-        if (video.getLessonID() == null || !lessonControllerService.getLessonById(video.getId()).isPresent()) {
+        if (video.getLessonID() == null || !lessonControllerService.getLessonById(Long.parseLong(video.getLessonID())).isPresent()) {
             LOG.info("Can not save. Nust have LessonID");
             return;
         }
