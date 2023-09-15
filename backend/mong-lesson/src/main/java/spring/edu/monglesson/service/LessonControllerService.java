@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import spring.edu.monglesson.ServerMapper;
-import spring.edu.monglesson.kafka.KafkaService;
 import spring.edu.monglesson.model.Lesson;
 import spring.edu.monglesson.model.LessonDTO;
 import spring.edu.monglesson.repository.LessonRepository;
@@ -14,14 +14,12 @@ import spring.edu.monglesson.repository.LessonRepository;
 @Service
 public class LessonControllerService {
     private final LessonRepository lessonRepository;
-    private final KafkaService kafkaService;
     private ServerMapper serverMapper;
 
     @Autowired
-    public LessonControllerService(LessonRepository lessonRepository, KafkaService kafkaService,
+    public LessonControllerService(LessonRepository lessonRepository,
             ServerMapper serverMapper) {
         this.lessonRepository = lessonRepository;
-        this.kafkaService = kafkaService;
         this.serverMapper = serverMapper;
     }
 

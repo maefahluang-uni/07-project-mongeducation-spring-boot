@@ -14,5 +14,5 @@ public interface VideoRepository extends CrudRepository<Video, Long> {
 
     public boolean existsById(Long id);
 
-    public List<Video> findByLesson(String lessonID);
+    public List<Video> findByLessonID(String lessonID);
 }

@@ -14,5 +14,5 @@ public interface NoteRepository extends CrudRepository<Note, Long> {
 
     public boolean existsById(Long id);
 
-    public List<Note> findByLesson(String lessonID);
+    public List<Note> findByLessonID(String lessonID);
 }

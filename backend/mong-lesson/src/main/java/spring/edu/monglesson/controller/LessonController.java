@@ -62,7 +62,7 @@ public class LessonController {
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody LessonDTO lessonDTO) {
+    public ResponseEntity<String> patchLesson(@PathVariable Long id, @RequestBody LessonDTO lessonDTO) {
         Optional<Lesson> optLesson = lessonControllerService.getLessonById(id);
         if (!optLesson.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
