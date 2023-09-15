@@ -1,4 +1,4 @@
-package spring.edu.mongbank;
+package spring.edu.mongteacher;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;

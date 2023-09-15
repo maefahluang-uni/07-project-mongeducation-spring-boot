@@ -1,4 +1,5 @@
-package spring.edu.mongbank;
+package spring.edu.mongteacher;
+
 
 import java.util.List;
 import org.springframework.data.repository.CrudRepository;

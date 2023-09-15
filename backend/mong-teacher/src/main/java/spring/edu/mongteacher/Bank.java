@@ -1,4 +1,4 @@
-package spring.edu.mongbank;
+package spring.edu.mongteacher;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

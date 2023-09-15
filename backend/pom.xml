@@ -20,6 +20,7 @@
 		<module>naming-server</module>
 		<module>mong-bank</module>
 		<module>mong-teacher</module>
+		<module>mong-category</module>
 	</modules>
 	
 	<dependencies>
