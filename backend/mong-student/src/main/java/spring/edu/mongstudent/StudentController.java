@@ -53,6 +53,8 @@ public class StudentController {
     @PostMapping("/students")
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
         studentRepository.save(student);
+        
+        // Provide data for kafka.
         kafkaTemplate.send("student.regist", student.getId());
         return ResponseEntity.ok("student created.");
     }
