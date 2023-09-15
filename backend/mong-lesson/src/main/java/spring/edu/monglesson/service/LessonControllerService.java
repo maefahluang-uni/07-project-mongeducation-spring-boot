@@ -33,6 +33,11 @@ public class LessonControllerService {
         return optLesson;
     }
 
+    public List<Lesson> getLessonByCourseID(String courseID) {
+        List<Lesson> lessons = lessonRepository.findByCourseID(courseID);
+        return lessons;
+    }
+
     public void saveLesson(Lesson lesson) {
         lessonRepository.save(lesson);
     }

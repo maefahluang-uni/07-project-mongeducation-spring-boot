@@ -13,4 +13,7 @@ public interface LessonRepository extends CrudRepository<Lesson, Long> {
     public Optional<Lesson> findById(Long id);
 
     public boolean existsById(Long id);
+
+    public List<Lesson> findByCourseID(String courseID);
+
 }

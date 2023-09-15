@@ -45,6 +45,12 @@ public class LessonController {
         return ResponseEntity.ok(optLesson);
     }
 
+    @GetMapping("/course/{courseID}")
+    public ResponseEntity<List<Lesson>> getLessonByCourse(@PathVariable String courseID) {
+        List<Lesson> lessons = lessonControllerService.getLessonByCourseID(courseID);
+        return ResponseEntity.ok(lessons);
+    }
+
     @PostMapping
     public ResponseEntity<String> postLesson(@RequestBody Lesson lesson) {
         lessonControllerService.saveLesson(lesson);
