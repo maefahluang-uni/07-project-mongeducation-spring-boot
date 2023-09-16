@@ -15,7 +15,7 @@ public class KafkaService {
         this.kafkaTemplate = kafkaTemplate;
     }
 
-    public void sendMessage(Long id){
+    public void sendCourseID(Long id){
         kafkaTemplate.send(TOPIC_LESSON, id);
     }
     
