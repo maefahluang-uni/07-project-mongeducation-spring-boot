@@ -20,8 +20,6 @@
 		<module>naming-server</module>
 		<module>mong-course</module>
 		<module>mong-lesson</module>
-		<module>mong-video</module>
-		<module>mong-note</module>
 	</modules>
 	
 	<dependencies>
