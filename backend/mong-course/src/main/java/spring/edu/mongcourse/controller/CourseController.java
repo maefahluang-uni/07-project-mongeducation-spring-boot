@@ -62,6 +62,12 @@ public class CourseController {
         return ResponseEntity.ok("Course was created");
     }
 
+    @PostMapping("/create/lesson/{courseID}")
+    public ResponseEntity<String> postLessonIdCourse(@PathVariable Long courseID) {
+        courseControllerService.sendIdToLesson(courseID);
+        return ResponseEntity.ok("CourseID was send");
+    }
+
     @PutMapping("/{id}")
     public ResponseEntity<String> putCourse(@PathVariable Long id, @RequestBody Course course) {
         Optional<Course> optCourse = courseControllerService.getCourseById(id);

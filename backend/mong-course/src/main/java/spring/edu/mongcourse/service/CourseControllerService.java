@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import spring.edu.mongcourse.ServerMapper;
+import spring.edu.mongcourse.kafka.KafkaService;
 import spring.edu.mongcourse.model.Course;
 import spring.edu.mongcourse.model.CourseDTO;
 import spring.edu.mongcourse.repository.CourseRepository;
@@ -14,11 +15,14 @@ import spring.edu.mongcourse.repository.CourseRepository;
 @Service
 public class CourseControllerService {
     private final CourseRepository courseRepository;
+    private final KafkaService kafkaService;
     private final ServerMapper serverMapper;
 
     @Autowired
-    public CourseControllerService(CourseRepository courseRepository, ServerMapper serverMapper) {
+    public CourseControllerService(CourseRepository courseRepository, KafkaService kafkaService,
+            ServerMapper serverMapper) {
         this.courseRepository = courseRepository;
+        this.kafkaService = kafkaService;
         this.serverMapper = serverMapper;
     }
 
@@ -57,5 +61,9 @@ public class CourseControllerService {
 
     public void deleteAllCourse() {
         courseRepository.deleteAll();
+    }
+
+    public void sendIdToLesson(Long courseID){
+        kafkaService.sendCourseIdToLesson(courseID);
     }
 }
