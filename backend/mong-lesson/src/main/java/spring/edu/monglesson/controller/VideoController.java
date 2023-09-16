@@ -63,6 +63,7 @@ public class VideoController {
         if (!optVideo.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Video not found");
         }
+        video.setId(id);
         videoControllerService.saveVideo(video);
         return ResponseEntity.ok("Video was updated");
     }

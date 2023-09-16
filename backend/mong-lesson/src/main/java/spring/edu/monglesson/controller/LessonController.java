@@ -63,6 +63,7 @@ public class LessonController {
         if (!optLesson.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Lesson not found");
         }
+        lesson.setId(id);
         lessonControllerService.saveLesson(lesson);
         return ResponseEntity.ok("Lesson was updated");
     }

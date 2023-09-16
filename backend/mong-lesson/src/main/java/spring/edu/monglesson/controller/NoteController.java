@@ -65,6 +65,7 @@ public class NoteController {
         if (!optNote.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Note not found");
         }
+        note.setId(id);
         noteControllerService.saveNote(note);
         return ResponseEntity.ok("Note was updated");
     }
