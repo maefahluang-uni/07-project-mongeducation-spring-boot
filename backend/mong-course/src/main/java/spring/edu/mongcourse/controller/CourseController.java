@@ -68,6 +68,7 @@ public class CourseController {
         if (!optCourse.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Course not found");
         }
+        course.setId(id);
         courseControllerService.saveCourse(course);
         return ResponseEntity.ok("Course was updated");
     }

@@ -57,6 +57,7 @@ public class CategoryController {
         if (!optCategory.isPresent()) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Category not found");
         }
+        category.setId(id);
         categotyControllerService.saveCategory(category);
         return ResponseEntity.ok("Category was updated");
     }
