@@ -1,4 +1,4 @@
-package spring.edu.mongteacher;
+package spring.edu.mongteacher.controller;
 
 import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +7,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import spring.edu.mongteacher.domain.Bank;
+import spring.edu.mongteacher.repository.BankRepository;
 
 @RestController
 public class BankController {

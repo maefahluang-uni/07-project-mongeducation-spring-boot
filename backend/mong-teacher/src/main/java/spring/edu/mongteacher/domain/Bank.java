@@ -1,4 +1,4 @@
-package spring.edu.mongteacher;
+package spring.edu.mongteacher.domain;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -22,23 +22,44 @@ public class Bank {
     public Bank(){
         
     }
-    public Bank(String name, String bankNum) {
+
+
+    public Bank(Long id, String name, String bankNum) {
+        this.id = id;
         this.name = name;
-        this.bankNum =bankNum;
+        this.bankNum = bankNum;
     }
+
+
+    public Long getId() {
+        return id;
+    }
+
 
     public String getName() {
         return name;
     }
+
+
     public String getBankNum() {
         return bankNum;
     }
+
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+
     public void setName(String name) {
         this.name = name;
     }
+
+
     public void setBankNum(String bankNum) {
         this.bankNum = bankNum;
     }
+   
 
     
 }
