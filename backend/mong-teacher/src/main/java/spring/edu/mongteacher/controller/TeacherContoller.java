@@ -44,6 +44,16 @@ public class TeacherContoller {
         return ResponseEntity.ok().body(teacherRepository.findAll());
     }
 
+    //get by id
+    @GetMapping("/teachers/{id}")
+    public ResponseEntity<?> getTeacherById(@PathVariable Long id){
+        Optional<Teacher> teacher = teacherRepository.findById(id);
+        if(!teacher.isPresent()){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id is not found");
+        }
+        return ResponseEntity.ok(teacher);
+    }
+
     //post teacher
     @PostMapping("/teachers")
     public ResponseEntity<String> createTeacher(@RequestBody Teacher teacher){
@@ -55,7 +65,9 @@ public class TeacherContoller {
     @PutMapping("/teachers/{teacherID}/banks/{bankID}")
     public ResponseEntity<String> createTeacher(@PathVariable Long teacherID,@PathVariable Long bankID){
         Bank bank = bankRepository.findById(bankID).orElse(null);
+        Optional<Teacher> teachers = teacherRepository.findById(teacherID);
         Teacher teacher = new Teacher();
+        teacher = teachers.get();
         teacher.setBankID(bank);
         teacherRepository.save(teacher);
         return ResponseEntity.ok().body("created");
@@ -76,7 +88,7 @@ public class TeacherContoller {
     }
 
     //delete teacher
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/teachers/{id}")
     public ResponseEntity<String> deleteTeacher(@PathVariable Long id){
      Optional<Teacher> optTeacher = teacherRepository.findById(id);
         if(!optTeacher.isPresent()){
