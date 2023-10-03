@@ -18,6 +18,8 @@
 	
 	<modules>
 		<module>naming-server</module>
+		<module>mong-student</module>
+		<module>mong-report</module>
 		<module>mong-course</module>
 		<module>mong-lesson</module>
 	</modules>

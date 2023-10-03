@@ -12,6 +12,27 @@
         },
         {
             "type": "java",
+            "name": "EurekaNamingServerApplication",
+            "request": "launch",
+            "mainClass": "spring.edu.namingserver.EurekaNamingServerApplication",
+            "projectName": "naming-server"
+        },
+        {
+            "type": "java",
+            "name": "StudentMicroServices",
+            "request": "launch",
+            "mainClass": "spring.edu.mongstudent.MongStudentApplication",
+            "projectName": "mong-student"
+        },
+        {
+            "type": "java",
+            "name": "ReportMicroServices",
+            "request": "launch",
+            "mainClass": "spring.edu.mongreport.MongReportApplication",
+            "projectName": "mong-report"
+        },
+        {
+            "type": "java",
             "name": "MongCourseApplication",
             "request": "launch",
             "mainClass": "spring.edu.mongcourse.MongCourseApplication",
@@ -24,12 +45,5 @@
             "mainClass": "spring.edu.monglesson.MongLessonApplication",
             "projectName": "mong-lesson"
         },
-        {
-            "type": "java",
-            "name": "EurekaNamingServerApplication",
-            "request": "launch",
-            "mainClass": "spring.edu.namingserver.EurekaNamingServerApplication",
-            "projectName": "naming-server"
-        }
     ]
 }
