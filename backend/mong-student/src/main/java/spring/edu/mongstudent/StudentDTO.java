@@ -7,6 +7,9 @@ public class StudentDTO {
     private String lastName;
     private int creditUsage;
 
+    private String username;
+    private String password;
+
     public Long getId() {
         return id;
     }
@@ -37,6 +40,22 @@ public class StudentDTO {
     
     public void setCreditUsage(int creditUsage) {
         this.creditUsage = creditUsage;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     

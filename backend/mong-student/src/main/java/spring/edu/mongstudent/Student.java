@@ -16,14 +16,19 @@ public class Student {
     private String lastName;
     private int creditUsage;
 
+    private String username;
+    private String password;
+
     public Student() {
     }
 
-    public Student(Long id, String firstName, String lastName, int creditUsage) {
+    public Student(Long id, String firstName, String lastName, int creditUsage, String username, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.creditUsage = creditUsage;
+        this.username = username;
+        this.password = password;
     }
 
     public Long getId() {
@@ -56,6 +61,22 @@ public class Student {
 
     public void setCreditUsage(int creditUsage) {
         this.creditUsage = creditUsage;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     
