@@ -74,9 +74,9 @@ public class TeacherContoller {
     // post teacher
     @PostMapping("/teachers")
     public ResponseEntity<String> createTeacher(@RequestBody Teacher teacher) {
-        //check username same
-        if(!teacher.getFirstName().isEmpty()){
-            return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Username is already");
+        // Check if the username already exists in the repository
+        if (teacherRepository.existsByUserName(teacher.getUserName())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already in use");
         }
         teacherRepository.save(teacher);
         return ResponseEntity.ok().body("created");

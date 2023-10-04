@@ -12,4 +12,5 @@ public interface TeacherRepository extends CrudRepository <Teacher,Long>{
     public Optional<Teacher> findById(Long id);
     public List<Teacher> findByUserName(String userName);
     public List<Teacher> findByPassWord(String passWord);
+    public boolean existsByUserName(String userName);
 }
