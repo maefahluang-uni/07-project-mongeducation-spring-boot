@@ -1,6 +1,7 @@
 import React, { useState, useContext } from "react";
 import { userContext } from "../App";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 function RegisterTeacher() {
   const [firstName, setFirstName] = useState("");
@@ -9,6 +10,7 @@ function RegisterTeacher() {
   const [passWord, setPassWord] = useState("");
   const [idCard, setIdCard] = useState("");
   const { dataContent, setDataContent } = useContext(userContext);
+  const navigate = useNavigate();
 
   //set even
   const handleSubmit = (e) => {
@@ -69,6 +71,7 @@ function RegisterTeacher() {
             }
 
             console.log("Response data:", response.data[last_index]);
+            navigate("/")
           })
           .catch((error) => {
             // Handle any errors that occurred during the request

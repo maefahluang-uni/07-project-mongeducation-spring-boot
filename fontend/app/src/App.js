@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import LoginTeacher from "./Pages/LoginTeacher";
 import RegisterTeacher from "./Pages/RegisterTeacher";
+import AddBank from "./Pages/AddBank";
 
 const userContext = React.createContext();
 
@@ -22,9 +23,10 @@ function App() {
       <userContext.Provider value={{ dataContent, setDataContent }}>
         <>
         <Routes>
+          <Route path="/Bank" element={<AddBank></AddBank>} />
           <Route path="/LoginTeacher" element={<LoginTeacher></LoginTeacher>} />
           <Route path="/RegisterTeacher" element={<RegisterTeacher></RegisterTeacher>} />
-          <Route path="/*" element={<div>Page not found {console.log(dataUser.firstName+dataUser.lastName)}</div>} />
+          <Route path="/*" element={<div>Page not found</div>} />
         </Routes>
         </>
       </userContext.Provider>
