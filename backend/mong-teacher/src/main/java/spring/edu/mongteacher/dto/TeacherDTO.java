@@ -10,15 +10,20 @@ public class TeacherDTO {
     private String firstName;
     private String lastName;
     private String idCard;
+    private String userName;
+    private String passWord;
 
     public TeacherDTO() {}
 
-    public TeacherDTO(Long id, Bank bankID, String firstName, String lastName, String idCard) {
+    public TeacherDTO(Long id, Bank bankID, String firstName, String lastName, String idCard, String userName,
+            String passWord) {
         this.id = id;
         this.bankID = bankID;
         this.firstName = firstName;
         this.lastName = lastName;
         this.idCard = idCard;
+        this.userName = userName;
+        this.passWord = passWord;
     }
 
     public Long getId() {
@@ -41,6 +46,14 @@ public class TeacherDTO {
         return idCard;
     }
 
+    public String getUserName() {
+        return userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
     public void setId(Long id) {
         this.id = id;
     }
@@ -60,4 +73,13 @@ public class TeacherDTO {
     public void setIdCard(String idCard) {
         this.idCard = idCard;
     }
+
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
+    }
+
 }

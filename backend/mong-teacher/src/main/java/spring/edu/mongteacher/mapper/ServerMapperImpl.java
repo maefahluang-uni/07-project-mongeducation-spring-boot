@@ -31,6 +31,12 @@ public class ServerMapperImpl implements ServerMapper {
         if(dto.getIdCard() != null){
             entity.setIdCard(dto.getIdCard());
         }
+        if(dto.getUserName() != null){
+            entity.setUserName(dto.getUserName());
+        }
+        if(dto.getPassWord() != null){
+            entity.setPassWord(dto.getPassWord());
+        }
     }
 
     @Override
