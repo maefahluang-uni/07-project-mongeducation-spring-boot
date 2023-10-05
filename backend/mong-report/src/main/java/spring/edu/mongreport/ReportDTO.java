@@ -2,6 +2,7 @@ package spring.edu.mongreport;
 
 public class ReportDTO {
     private Long id;
+    private Long courseId;
     private String studentId;
     private String description;
 
@@ -28,5 +29,13 @@ public class ReportDTO {
     public void setStudentId(String studentId) {
         this.studentId = studentId;
     }
-    
+
+    public Long getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(Long courseId) {
+        this.courseId = courseId;
+    }
+
 }

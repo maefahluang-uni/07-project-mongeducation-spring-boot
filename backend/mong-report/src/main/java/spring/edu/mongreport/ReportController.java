@@ -4,35 +4,44 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
+
+import spring.edu.mongcourse.model.Course;
 
 @RestController
+@RequestMapping("/reports")
 public class ReportController {
-    
+
     @Autowired
     private ReportRepository reportRepository;
 
     @Autowired
     private ServerMapper serverMapper;
 
+    @Autowired
+    private RestTemplate restTemplate;
+    private final String courseMicroserviceUrl = "http://localhost:8020";
+
     // non-relational relationship of restful API (classic). 
 
-    @GetMapping("/reports")
+    @GetMapping()
     public ResponseEntity<List<Report>> getAllReports() {
         List<Report> reports = reportRepository.findAll();
         return ResponseEntity.ok(reports);
     }
 
-     @GetMapping("/reports/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getReportById(@PathVariable Long id) {
         Optional<Report> reportOpt = reportRepository.findById(id);
 
@@ -44,7 +53,7 @@ public class ReportController {
         return ResponseEntity.ok(report);
     }
 
-    @PutMapping("/reports/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateReports(@PathVariable Long id, @RequestBody Report report) {
          if (!reportRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("report not found.");
@@ -54,7 +63,7 @@ public class ReportController {
         return ResponseEntity.ok("report updated.");
     }
 
-    @PatchMapping("/reports/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> patchReports(@PathVariable Long id, @RequestBody ReportDTO reportDto) {
         Optional<Report> reportOpt = reportRepository.findById(id);
 
@@ -69,7 +78,7 @@ public class ReportController {
         return ResponseEntity.ok("report patched.");
     }
 
-    @DeleteMapping("/reports/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteReportById(@PathVariable Long id) {
         if (!reportRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("report not found.");
@@ -79,7 +88,7 @@ public class ReportController {
         return ResponseEntity.ok("report deleted.");
     }
 
-    @DeleteMapping("/reports")
+    @DeleteMapping()
     public ResponseEntity<String> deleteAllReports() {
         reportRepository.deleteAll();
         return ResponseEntity.ok("all reports deleted.");
@@ -88,16 +97,31 @@ public class ReportController {
 
     // relational relationship of restful API (classic)
 
-    @PostMapping("/reports")
-    public ResponseEntity<String> createReports(String studentId) {
-        if (studentId == null) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("can't consumed student entity.");
+    public void createReportByEnroll(String student_id, String course_id) {
+        ResponseEntity<Course> courseResponse = restTemplate.exchange(
+            courseMicroserviceUrl + "/courses/{id}",
+            HttpMethod.GET,
+            null,
+            Course.class,
+            course_id
+        );
+
+        if (courseResponse.getStatusCode().is2xxSuccessful()) {
+            Course course = courseResponse.getBody();
+            if (course != null) {
+                Report report = new Report();
+                report.setStudentId(student_id);
+                report.setCourseId(course_id);
+                try {
+                    reportRepository.save(report);
+                    return;
+                } catch (Exception ex) {
+                    return;
+                }
+            } else {
+                return;
+            }
         }
-        
-        Report report = new Report();
-        report.setStudentId(studentId);
-        
-        reportRepository.save(report);
-        return ResponseEntity.ok("report created.");
     }
+
 }

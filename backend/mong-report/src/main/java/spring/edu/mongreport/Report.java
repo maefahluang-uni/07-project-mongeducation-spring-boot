@@ -5,23 +5,24 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
-
 @Entity
 public class Report {
     
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
     private Long id;
+    private String courseId;
     private String studentId;
     private String description;
     
     public Report() {
     }
 
-    public Report(Long id, String description, String studentId) {
+    public Report(Long id, String studentId, String courseId, String description) {
         this.id = id;
         this.description = description;
         this.studentId = studentId;
+        this.courseId = courseId;
     }
 
     public Long getId() {
@@ -46,6 +47,14 @@ public class Report {
 
     public void setStudentId(String studentId) {
         this.studentId = studentId;
+    }
+
+    public String getCourseId() {
+        return courseId;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
     }
     
 }
