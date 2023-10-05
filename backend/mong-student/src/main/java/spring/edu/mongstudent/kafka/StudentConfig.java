@@ -1,6 +1,7 @@
 package spring.edu.mongstudent.kafka;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.kafka.clients.producer.ProducerConfig;
@@ -14,9 +15,8 @@ import org.springframework.kafka.support.serializer.JsonSerializer;
 
 @Configuration
 public class StudentConfig {
-    
     @Bean
-    public ProducerFactory<String, Long> producerFactory() {
+    public ProducerFactory<String, List<Long>> producerFactory() {
         Map<String, Object> config = new HashMap<>();
         config.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, "127.0.0.1:9092");
 		config.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
@@ -26,7 +26,8 @@ public class StudentConfig {
     }
 
     @Bean
-	public KafkaTemplate<String, Long> kafkaTemplate() {
+	public KafkaTemplate<String, List<Long>> kafkaTemplate() {
 		return new KafkaTemplate<>(producerFactory());
 	}
+
 }
