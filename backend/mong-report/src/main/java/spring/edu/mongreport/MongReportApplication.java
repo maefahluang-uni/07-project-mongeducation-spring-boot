@@ -2,10 +2,14 @@ package spring.edu.mongreport;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.context.annotation.ComponentScan;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 @SpringBootApplication
-@ComponentScan(basePackages = {"spring.edu.mongreport", "spring.edu.mongstudent"})
+@EntityScan(basePackages = {
+    "spring.edu.mongreport",
+    "spring.edu.mongcourse.model.Course"
+})
+
 public class MongReportApplication {
 
 	public static void main(String[] args) {
