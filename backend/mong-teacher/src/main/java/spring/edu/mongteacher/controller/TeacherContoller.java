@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import spring.edu.mongteacher.Kafka.KafkaService;
 import spring.edu.mongteacher.domain.Bank;
 import spring.edu.mongteacher.domain.Teacher;
 import spring.edu.mongteacher.dto.TeacherDTO;
@@ -32,6 +33,9 @@ public class TeacherContoller {
 
     @Autowired
     private final ServerMapper serverMapper;
+
+    @Autowired
+    private KafkaService kafkaService;
 
     @Autowired
     public TeacherContoller(BankRepository bankRepository, TeacherRepository teacherRepository,
@@ -57,6 +61,12 @@ public class TeacherContoller {
         return ResponseEntity.ok(teacher);
     }
 
+    //send id to course
+    @PostMapping("/teachers/sender/{id}")
+    public ResponseEntity<String> sendIdToCourse(@PathVariable Long id){
+        return kafkaService.sendOutTeacherId(id);
+    }
+    
     // post check login
     @PostMapping("/teachers/login")
     public ResponseEntity<?> login(@RequestBody Teacher teacher) {
