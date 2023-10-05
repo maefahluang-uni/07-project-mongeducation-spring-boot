@@ -45,5 +45,12 @@
             "mainClass": "spring.edu.monglesson.MongLessonApplication",
             "projectName": "mong-lesson"
         },
+        {
+            "type": "java",
+            "name": "MongTeacherApplication ",
+            "request": "launch",
+            "mainClass": "spring.edu.mongteacher.MongTeacherApplication",
+            "projectName": "mong-teacher"
+        },
     ]
 }
