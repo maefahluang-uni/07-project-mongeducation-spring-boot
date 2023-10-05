@@ -6,7 +6,6 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -14,11 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import spring.edu.mongstudent.kafka.KafkaServices;
 
 
 
 @RestController
+@RequestMapping("/students")
 public class StudentController {
     
     @Autowired
@@ -28,17 +31,17 @@ public class StudentController {
     private ServerMapper serverMapper;
 
     @Autowired
-    private KafkaTemplate<String, Long> kafkaTemplate;
+    private KafkaServices kafkaServices;
 
     // non-relational relationship of restful API (classic). 
 
-    @GetMapping("/students")
+    @GetMapping()
     public ResponseEntity<List<Student>> getAllStudents() {
         List<Student> students = studentRepository.findAll();
         return ResponseEntity.ok(students);
     }
 
-    @GetMapping("/students/{id}")
+    @GetMapping("/{id}")
     public ResponseEntity<?> getStudentById(@PathVariable Long id) {
         Optional<Student> studentOpt = studentRepository.findById(id);
 
@@ -50,16 +53,19 @@ public class StudentController {
         return ResponseEntity.ok(student);
     }
 
-    @PostMapping("/students")
+    @PostMapping()
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
         studentRepository.save(student);
-        
-        // Provide data for kafka.
-        kafkaTemplate.send("student.regist", student.getId());
         return ResponseEntity.ok("student created.");
     }
 
-    @PutMapping("/students/{id}")
+    @PostMapping("/{student_id}/enroll/{course_id}")
+    public ResponseEntity<String> enrollCourseByStudent(@PathVariable Long student_id, @PathVariable Long course_id) {
+        // Provide data for kafka.
+        return kafkaServices.registStudentIdAndCourseId(student_id, course_id);
+    }
+
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateStudent(@PathVariable Long id, @RequestBody Student student) {
          if (!studentRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("student not found.");
@@ -69,7 +75,7 @@ public class StudentController {
         return ResponseEntity.ok("student updated.");
     }
 
-    @PatchMapping("/students/{id}")
+    @PatchMapping("/{id}")
     public ResponseEntity<String> patchStudent(@PathVariable Long id, @RequestBody StudentDTO studentDto) {
         Optional<Student> studentOpt = studentRepository.findById(id);
 
@@ -84,7 +90,7 @@ public class StudentController {
         return ResponseEntity.ok("student patched.");
     }
 
-    @DeleteMapping("/students/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<String> deleteStudentById(@PathVariable Long id) {
         if (!studentRepository.existsById(id)) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("student not found.");
@@ -94,7 +100,7 @@ public class StudentController {
         return ResponseEntity.ok("student deleted.");
     }
 
-    @DeleteMapping("/students")
+    @DeleteMapping()
     public ResponseEntity<String> deleteAllStudents() {
         studentRepository.deleteAll();
         return ResponseEntity.ok("all students deleted.");
