@@ -22,6 +22,7 @@
 		<module>mong-report</module>
 		<module>mong-course</module>
 		<module>mong-lesson</module>
+		<module>mong-teacher</module>
 	</modules>
 	
 	<dependencies>
