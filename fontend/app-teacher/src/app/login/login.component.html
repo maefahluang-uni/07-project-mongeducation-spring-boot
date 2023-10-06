@@ -35,7 +35,9 @@
           <form #loginForm="ngForm" (ngSubmit)="submitLoginForm()">
             <!-- Email input -->
             <div class="form-outline mb-4">
-              <label class="form-label" for="loginUsername">Username :</label>
+              <label class="form-label" for="loginUsername"
+                >Username&nbsp;:</label
+              >
               <input
                 type="text"
                 id="loginUsername"
@@ -48,7 +50,9 @@
 
             <!-- Password input -->
             <div class="form-outline mb-4">
-              <label class="form-label" for="loginPassword">Password :</label>
+              <label class="form-label" for="loginPassword"
+                >Password&nbsp;:</label
+              >
               <input
                 type="password"
                 id="loginPassword"
@@ -81,9 +85,11 @@
       >
         <form #registerForm="ngForm" (ngSubmit)="submitRegisterForm()">
           <!-- FName input -->
-          <div class="form-outline mb-4">
+          <div
+            class="form-outline mb-1"
+          >
             <label class="form-label" for="registerFirstName"
-              >First Name :</label
+              >First&nbsp;Name&nbsp;:</label
             >
             <input
               type="text"
@@ -95,8 +101,10 @@
             />
           </div>
           <!-- LName input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerLastName">Last Name :</label>
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerLastName"
+              >Last&nbsp;Name&nbsp;:</label
+            >
             <input
               type="text"
               id="registerLastName"
@@ -108,8 +116,10 @@
           </div>
 
           <!-- Username input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerUsername">Username :</label>
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerUsername"
+              >Username&nbsp;:</label
+            >
             <input
               type="text"
               id="registerUsername"
@@ -121,8 +131,10 @@
           </div>
 
           <!-- ID Card input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerIDCard">ID Card :</label>
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerIDCard"
+              >ID&nbsp;Card&nbsp;:</label
+            >
             <input
               type="text"
               id="registerIDCard"
@@ -134,8 +146,10 @@
           </div>
 
           <!-- Password input -->
-          <div class="form-outline mb-4">
-            <label class="form-label" for="registerPassword">Password :</label>
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerPassword"
+              >Password&nbsp;:</label
+            >
             <input
               type="password"
               id="registerPassword"
@@ -147,7 +161,7 @@
           </div>
 
           <!-- Repeat Password input -->
-          <div class="form-outline mb-4">
+          <div class="form-outline mb-1">
             <label class="form-label" for="registerRepeatPassword"
               >Repeat password :</label
             >
@@ -163,7 +177,7 @@
           <!-- Submit button -->
           <button
             type="submit"
-            class="btn btn-primary btn-block mb-3"
+            class="btn btn-primary btn-block mb-3 mt-3"
             [disabled]="!registerForm.form.valid"
           >
             Sign in
