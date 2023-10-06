@@ -37,7 +37,7 @@
     <div *ngFor="let item of getBar()">
       <div
         class="btn p-0 d-flex flex-row align-items-center"
-        (click)="navigatePage(item[1])"
+        (click)="clickBar(item)"
       >
         <label>{{ item[0] }}</label>
         <p>></p>

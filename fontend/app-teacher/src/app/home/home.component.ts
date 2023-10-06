@@ -46,5 +46,21 @@ export class HomeComponent {
     this.router.navigate([page]);
   }
 
+  clickBar(item: string[]) {
+    // Find the index of the clicked item in the this.bar array
+    const index = this.bar.findIndex((barItem) => barItem === item);
+
+    if (index !== -1) {
+      // Use splice to remove all items after the clicked item
+      this.bar.splice(index + 1);
+
+      // Save the updated this.bar array in local storage
+      localStorage.setItem('bar', JSON.stringify(this.getBar()));
+
+      // Navigate to the selected page
+      this.navigatePage(item[1]);
+    }
+  }
+
   submitSearchForm() {}
 }
