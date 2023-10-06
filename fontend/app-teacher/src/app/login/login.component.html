@@ -62,6 +62,10 @@
                 required
               />
             </div>
+            <!-- Error text -->
+            <div class="form-outline mb-4 text-center text-danger">
+              <label>{{errorText}}</label>
+            </div>
 
             <!-- Submit button -->
             <button
@@ -85,9 +89,7 @@
       >
         <form #registerForm="ngForm" (ngSubmit)="submitRegisterForm()">
           <!-- FName input -->
-          <div
-            class="form-outline mb-1"
-          >
+          <div class="form-outline mb-1">
             <label class="form-label" for="registerFirstName"
               >First&nbsp;Name&nbsp;:</label
             >

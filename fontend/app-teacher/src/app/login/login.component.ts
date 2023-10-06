@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NgForm } from '@angular/forms';
+import { Router } from '@angular/router';
+import { Teacher } from '../model/teacher';
 
 @Component({
   selector: 'app-login',
@@ -20,6 +22,12 @@ export class LoginComponent implements OnInit {
     password: '',
     repeatPassword: '',
   };
+
+  errorText = '';
+
+  private teacher!: Teacher;
+
+  constructor(private router: Router) {}
 
   ngOnInit() {
     this.activeTab = localStorage.getItem('activeTab') || 'login';
@@ -44,6 +52,47 @@ export class LoginComponent implements OnInit {
   }
 
   submitLoginForm() {
-    console.log('Login Data:', this.LoginData);
+    this.findTeacher()
+      .then(() => {
+        console.log(this.teacher);
+
+        // Navigate to /home
+        this.router.navigate(['/home']);
+      })
+      .catch((error) => {
+        console.log('error', error);
+      });
+  }
+
+  async findTeacher() {
+    var requestOptions = {
+      method: 'GET',
+    };
+
+    await fetch(
+      `http://localhost:8010/teachers/userName/${this.LoginData.username}`,
+      requestOptions
+    )
+      .then((response) => response.text())
+      .then((result) => {
+        const res = JSON.parse(result);
+
+        if (res.passWord != this.LoginData.password) {
+          throw new Error('Failed, password not true'); // Handle non-OK responses as an error
+        }
+        this.teacher = new Teacher(
+          res.id,
+          res.bankID,
+          res.firstName,
+          res.lastName,
+          res.idCard,
+          res.userName,
+          res.passWord
+        );
+      })
+      .catch((error) => {
+        this.errorText = '!!Username or password is false!!';
+        console.log('error', error);
+      });
   }
 }
