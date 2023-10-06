@@ -7,9 +7,10 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { TeacherService } from './service/teacher.service';
+import { TeacherComponent } from './teacher/teacher.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, TeacherComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [TeacherService],
   bootstrap: [AppComponent],
