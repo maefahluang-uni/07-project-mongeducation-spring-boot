@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component } from '@angular/core';
 import { Teacher } from '../model/teacher';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -8,5 +8,15 @@ import { Teacher } from '../model/teacher';
   styleUrls: ['./home.component.css'],
 })
 export class HomeComponent {
-  constructor(private route: ActivatedRoute) {}
+  private teacher!: Teacher;
+
+  constructor(private router: Router) {
+    const teacherData = localStorage.getItem('teacher');
+
+    if (teacherData) {
+      this.teacher = JSON.parse(teacherData);
+    } else {
+      this.router.navigate(['/']);
+    }
+  }
 }
