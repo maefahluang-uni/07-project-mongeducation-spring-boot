@@ -5,6 +5,7 @@ public class ReportDTO {
     private Long courseId;
     private String studentId;
     private String description;
+    private String rating;
 
     public Long getId() {
         return id;
@@ -36,6 +37,14 @@ public class ReportDTO {
 
     public void setCourseId(Long courseId) {
         this.courseId = courseId;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
 
 }

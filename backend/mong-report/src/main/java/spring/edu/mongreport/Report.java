@@ -14,15 +14,17 @@ public class Report {
     private String courseId;
     private String studentId;
     private String description;
+    private String rating;
     
     public Report() {
     }
 
-    public Report(Long id, String studentId, String courseId, String description) {
+    public Report(Long id, String studentId, String courseId, String description, String rating) {
         this.id = id;
         this.description = description;
         this.studentId = studentId;
         this.courseId = courseId;
+        this.rating = rating;
     }
 
     public Long getId() {
@@ -55,6 +57,14 @@ public class Report {
 
     public void setCourseId(String courseId) {
         this.courseId = courseId;
+    }
+
+    public String getRating() {
+        return rating;
+    }
+
+    public void setRating(String rating) {
+        this.rating = rating;
     }
     
 }
