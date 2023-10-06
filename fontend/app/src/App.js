@@ -4,6 +4,8 @@ import { Route, Routes } from "react-router-dom";
 import LoginTeacher from "./Pages/LoginTeacher";
 import RegisterTeacher from "./Pages/RegisterTeacher";
 import AddBank from "./Pages/AddBank";
+import RegisterStudent from "./Pages/RegisterStudent";
+import LoginStudent from "./Pages/LoginStudent";
 
 const userContext = React.createContext();
 
@@ -17,7 +19,9 @@ function App() {
   });
 
   const dataUser = JSON.parse(localStorage.getItem("dataContent"))
+
   //return function
+
   return (
     <>
       <userContext.Provider value={{ dataContent, setDataContent }}>
@@ -25,6 +29,8 @@ function App() {
         <Routes>
           <Route path="/Bank" element={<AddBank></AddBank>} />
           <Route path="/LoginTeacher" element={<LoginTeacher></LoginTeacher>} />
+          <Route path="/LoginStudent" element={<LoginStudent></LoginStudent>} />
+          <Route path="/RegisterStudent" element={<RegisterStudent></RegisterStudent>} />
           <Route path="/RegisterTeacher" element={<RegisterTeacher></RegisterTeacher>} />
           <Route path="/*" element={<div>Page not found</div>} />
         </Routes>

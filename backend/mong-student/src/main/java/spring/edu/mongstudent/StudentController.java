@@ -55,6 +55,11 @@ public class StudentController {
 
     @PostMapping()
     public ResponseEntity<String> createStudent(@RequestBody Student student) {
+        // Check if the username already exists in the repository
+        if (studentRepository.existsByUsername(student.getUsername())) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).body("Username is already in use");
+        }
+
         studentRepository.save(student);
         return ResponseEntity.ok("student created.");
     }
@@ -105,5 +110,22 @@ public class StudentController {
         studentRepository.deleteAll();
         return ResponseEntity.ok("all students deleted.");
     }
+
+
+     // post check login
+     @PostMapping("/login")
+     public ResponseEntity<?> login(@RequestBody Student student) {
+         List<Student> studentCheckUsername = studentRepository.findByUsername(student.getUsername());
+ 
+         if (studentCheckUsername.isEmpty()) {
+             return ResponseEntity.status(HttpStatus.NOT_FOUND).body("username not found");
+         }
+ 
+         Student foundStudent = studentCheckUsername.get(0);
+         if (!foundStudent.getPassword().equals(student.getPassword())) {
+             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+         }
+         return ResponseEntity.ok(studentCheckUsername);
+     }
 
 }
