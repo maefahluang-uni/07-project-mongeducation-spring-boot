@@ -14,7 +14,7 @@ export class TeacherComponent {
   constructor(private router: Router) {}
 
   goCourse() {
-    this.home.pushBar(['Coursename', '/course']);
+    this.home.pushBar(['Coursename', '/home/course']);
     this.router.navigate(['/home/course']);
   }
 }

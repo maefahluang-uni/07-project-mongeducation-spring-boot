@@ -26,7 +26,7 @@ export class HomeComponent {
     if (barData) {
       this.bar = JSON.parse(barData);
     } else {
-      this.pushBar(['หน้าหลัก', '/home']);
+      this.pushBar(['หน้าหลัก', '/home/teacher']);
     }
   }
 
