@@ -6,4 +6,6 @@ import { Teacher } from '../model/teacher';
 @Injectable({
   providedIn: 'root',
 })
-export class TeacherService {}
+export class TeacherService {
+
+}
