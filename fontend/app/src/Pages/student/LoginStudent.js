@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import PopupLogin from "../Components/PopupLogin";
-import { userContext } from "../App";
+import PopupLogin from "../../Components/PopupLogin";
+import { userContext } from "../../App";
 import axios from "axios";
 import { Link } from "react-router-dom";
 

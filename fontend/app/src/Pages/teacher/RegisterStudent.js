@@ -1,14 +1,14 @@
 import React, { useState, useContext } from "react";
-import { userContext } from "../App";
+import { userContext } from "../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 
-function RegisterTeacher() {
+function RegisterStudent() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [creditUsage, setCreditUseage] = useState("");
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
-  const [idCard, setIdCard] = useState("");
   const { dataContent, setDataContent } = useContext(userContext);
   const navigate = useNavigate();
 
@@ -18,13 +18,13 @@ function RegisterTeacher() {
     const data = {
       firstName: firstName,
       lastName: lastName,
-      idCard: idCard,
-      userName: userName,
-      passWord: passWord,
+      creditUsage: creditUsage,
+      username: userName,
+      password: passWord,
     };
 
     // กำหนด URL ที่จะทำการ POST ข้อมูล
-    const url = "http://localhost:8010/teachers/";
+    const url = "http://localhost:8000/students/";
 
     // กำหนด Headers
     const headers = {
@@ -44,7 +44,7 @@ function RegisterTeacher() {
       .then((response) => {
         // get last id
         axios
-          .get("http://localhost:8010/teachers/")
+          .get("http://localhost:8000/students/")
           .then((response) => {
             // Handle the successful response here
             const last_index = response.data.length - 1;
@@ -57,7 +57,7 @@ function RegisterTeacher() {
                 id: data.id,
                 firstName: data.firstName,
                 lastName: data.lastName,
-                status: "Teacher",
+                status: "Student",
               };
               setDataContent(updatedDataContent);
 
@@ -71,7 +71,7 @@ function RegisterTeacher() {
             }
 
             console.log("Response data:", response.data[last_index]);
-            navigate("/")
+            navigate("/");
           })
           .catch((error) => {
             // Handle any errors that occurred during the request
@@ -106,13 +106,13 @@ function RegisterTeacher() {
           onChange={(e) => setLastName(e.target.value)}
         ></input>
 
-        <label>ID Card:</label>
+        <label>Credit Usage:</label>
         <input
           type="text"
-          id="idCard"
-          name="idCard"
-          value={idCard}
-          onChange={(e) => setIdCard(e.target.value)}
+          id="creditUsage"
+          name="creditUsage"
+          value={creditUsage}
+          onChange={(e) => setCreditUseage(e.target.value)}
         ></input>
 
         <label>Username:</label>
@@ -139,4 +139,4 @@ function RegisterTeacher() {
   );
 }
 
-export default RegisterTeacher;
+export default RegisterStudent;
