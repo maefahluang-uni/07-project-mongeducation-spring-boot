@@ -8,9 +8,10 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './login/login.component';
 import { TeacherService } from './service/teacher.service';
 import { TeacherComponent } from './teacher/teacher.component';
+import { TeacherCourseComponent } from './teacher-course/teacher-course.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, TeacherComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, TeacherComponent, TeacherCourseComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [TeacherService],
   bootstrap: [AppComponent],
