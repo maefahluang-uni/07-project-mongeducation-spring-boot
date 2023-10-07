@@ -71,4 +71,9 @@ export class HomeComponent {
   }
 
   submitSearchForm() {}
+
+  logout() {
+    localStorage.removeItem('teacher')
+    this.navigatePage('/')
+  }
 }
