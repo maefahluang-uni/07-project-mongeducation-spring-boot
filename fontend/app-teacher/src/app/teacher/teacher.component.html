@@ -31,13 +31,13 @@
     >
       <div class="card-body">
         <h5 class="card-title">{{ course.name }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ course.categoryID }}</h6>
+        <h6 class="card-subtitle mb-2 text-muted">{{ getCategoryName(course.categoryID) }}</h6>
         <p class="card-text">
-          {{ course.description }}
+          {{ course.description }}&nbsp;
         </p>
         <div class="d-flex flex-row justify-content-evenly">
-          <label>{{ course.price }}</label>
-          <label>{{ course.credit }}</label>
+          <label>Price : {{ course.price }} Bath</label>
+          <label>Credit : {{ course.credit }}</label>
         </div>
       </div>
     </div>

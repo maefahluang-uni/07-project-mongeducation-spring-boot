@@ -17,11 +17,10 @@ export class CourseCreateComponent {
 
   courseData = {
     name: '',
-    description: '',
+    description: ' ',
     price: 0.0,
     credit: 2,
     categoryID: '1',
-    teacherID: '',
   };
 
   errorText = '';
@@ -36,6 +35,7 @@ export class CourseCreateComponent {
       })
       .catch((error) => console.log('error', error));
   }
+
   colse() {
     localStorage.setItem('blur', '');
     this.home.navigatePage('/home/teacher');
@@ -47,16 +47,16 @@ export class CourseCreateComponent {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-      name: 'na',
-      description: null,
-      price: 0,
-      credit: 0,
-      categoryID: null,
-      teacherID: null,
+      name: this.courseData.name,
+      description: this.courseData.description,
+      price: this.courseData.price,
+      credit: this.courseData.credit,
+      categoryID: this.courseData.categoryID,
+      teacherID: this.teacher.getTeacherID(),
     });
 
     var requestOptions = {
-      method: 'GET',
+      method: 'POST',
       headers: myHeaders,
       body: raw,
     };
@@ -65,6 +65,7 @@ export class CourseCreateComponent {
       .then((response) => response.text())
       .then((result) => console.log(result))
       .catch((error) => console.log('error', error));
+    this.colse();
     this.teacher.setCourses();
   }
 }
