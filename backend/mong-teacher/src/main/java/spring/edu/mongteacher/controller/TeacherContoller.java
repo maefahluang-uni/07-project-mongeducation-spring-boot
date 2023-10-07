@@ -61,27 +61,37 @@ public class TeacherContoller {
         return ResponseEntity.ok(teacher);
     }
 
-    //send id to course
+    // get by username
+    @GetMapping("/teachers/userName/{userName}")
+    public ResponseEntity<?> getTeacherById(@PathVariable String userName) {
+        Optional<Teacher> teacher = teacherRepository.findByuserName(userName);
+        if (!teacher.isPresent()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Id is not found");
+        }
+        return ResponseEntity.ok(teacher);
+    }
+
+    // send id to course
     @PostMapping("/teachers/sender/{id}")
-    public ResponseEntity<String> sendIdToCourse(@PathVariable Long id){
+    public ResponseEntity<String> sendIdToCourse(@PathVariable Long id) {
         return kafkaService.sendOutTeacherId(id);
     }
-    
+
     // post check login
-    @PostMapping("/teachers/login")
-    public ResponseEntity<?> login(@RequestBody Teacher teacher) {
-        List<Teacher> teacherCheckUserName = teacherRepository.findByUserName(teacher.getUserName());
+    // @PostMapping("/teachers/login")
+    // public ResponseEntity<?> login(@RequestBody Teacher teacher) {
+    //     List<Teacher> teacherCheckUserName = teacherRepository.findByUserName(teacher.getUserName());
 
-        if (teacherCheckUserName.isEmpty()) {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("userName not found");
-        }
+    //     if (teacherCheckUserName.isEmpty()) {
+    //         return ResponseEntity.status(HttpStatus.NOT_FOUND).body("userName not found");
+    //     }
 
-        Teacher foundTeacher = teacherCheckUserName.get(0);
-        if (!foundTeacher.getPassWord().equals(teacher.getPassWord())) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
-        }
-        return ResponseEntity.ok(teacherCheckUserName);
-    }
+    //     Teacher foundTeacher = teacherCheckUserName.get(0);
+    //     if (!foundTeacher.getPassWord().equals(teacher.getPassWord())) {
+    //         return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Invalid password");
+    //     }
+    //     return ResponseEntity.ok(teacherCheckUserName);
+    // }
 
     // post teacher
     @PostMapping("/teachers")
@@ -95,7 +105,7 @@ public class TeacherContoller {
     }
 
     // post teacher and bank
-    @CrossOrigin(origins = "http://localhost:3000", methods = {RequestMethod.PUT, RequestMethod.OPTIONS})
+    @CrossOrigin(origins = "http://localhost:3000", methods = { RequestMethod.PUT, RequestMethod.OPTIONS })
     @PutMapping("/teachers/{teacherID}/banks/{bankID}")
     public ResponseEntity<String> createTeacher(@PathVariable Long teacherID, @PathVariable Long bankID) {
         Bank bank = bankRepository.findById(bankID).orElse(null);

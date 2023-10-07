@@ -1,0 +1,22 @@
+<div class="container mt-4">
+  <div class="d-flex">
+    <div
+      class="card m-3 btn"
+      style="width: 18rem"
+      *ngFor="let course of courses"
+      (click)="goCourse(course)"
+    >
+      <div class="card-body">
+        <h5 class="card-title">{{ course.name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{course.categoryID}}</h6>
+        <p class="card-text">
+          {{ course.description }}
+        </p>
+        <div class="d-flex flex-row justify-content-evenly">
+          <label>{{ course.price }}</label>
+          <label>{{ course.credit }}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

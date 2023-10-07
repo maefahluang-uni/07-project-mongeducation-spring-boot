@@ -1,0 +1,196 @@
+<ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+  <li class="nav-item" role="presentation">
+    <a
+      class="btn btn-outline-primary w-100"
+      id="tab-login"
+      (click)="showLoginPage()"
+      [class.active]="activeTab === 'login'"
+      aria-controls="pills-login"
+      aria-selected="true"
+      >Login</a
+    >
+  </li>
+  <li class="nav-item" role="presentation">
+    <a
+      class="btn btn-outline-primary w-100"
+      id="tab-register"
+      (click)="showRegisterPage()"
+      [class.active]="activeTab === 'register'"
+      aria-controls="pills-register"
+      aria-selected="false"
+      >Register</a
+    >
+  </li>
+</ul>
+<div class="position-absolute top-50 start-50 translate-middle w-50">
+  <div>
+    <ng-template [ngIf]="activeTab === 'login'" [ngIfElse]="RegisterPage">
+      <div class="tab-content">
+        <div
+          class="tab-pane fade show active"
+          id="pills-login"
+          role="tabpanel"
+          aria-labelledby="tab-login"
+        >
+          <form #loginForm="ngForm" (ngSubmit)="submitLoginForm()">
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="loginUsername"
+                >Username&nbsp;:</label
+              >
+              <input
+                type="text"
+                id="loginUsername"
+                name="loginUsername"
+                class="form-control"
+                [(ngModel)]="LoginData.username"
+                required
+              />
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+              <label class="form-label" for="loginPassword"
+                >Password&nbsp;:</label
+              >
+              <input
+                type="password"
+                id="loginPassword"
+                name="password"
+                class="form-control"
+                [(ngModel)]="LoginData.password"
+                required
+              />
+            </div>
+            <!-- Error text -->
+            <div class="form-outline mb-4 text-center text-danger">
+              <label>{{ errorText }}</label>
+            </div>
+
+            <!-- Submit button -->
+            <button
+              type="submit"
+              class="btn btn-primary btn-block mb-4"
+              [disabled]="!loginForm.form.valid"
+            >
+              Sign in
+            </button>
+          </form>
+        </div>
+      </div>
+    </ng-template>
+    <!-- -------------------------------------------------------------------------- -->
+    <ng-template #RegisterPage>
+      <div
+        class="tab-pane fade show active"
+        id="pills-login"
+        role="tabpanel"
+        aria-labelledby="tab-login"
+      >
+        <form #registerForm="ngForm" (ngSubmit)="submitRegisterForm()">
+          <!-- FName input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerFirstName"
+              >First&nbsp;Name&nbsp;:</label
+            >
+            <input
+              type="text"
+              id="registerFirstName"
+              name="registerFirstName"
+              class="form-control"
+              [(ngModel)]="RegisterData.firstName"
+              required
+            />
+          </div>
+          <!-- LName input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerLastName"
+              >Last&nbsp;Name&nbsp;:</label
+            >
+            <input
+              type="text"
+              id="registerLastName"
+              name="registerLastName"
+              class="form-control"
+              [(ngModel)]="RegisterData.lastName"
+              required
+            />
+          </div>
+
+          <!-- Username input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerUsername"
+              >Username&nbsp;:</label
+            >
+            <input
+              type="text"
+              id="registerUsername"
+              name="registerUsername"
+              class="form-control"
+              [(ngModel)]="RegisterData.username"
+              required
+            />
+          </div>
+
+          <!-- ID Card input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerIDCard"
+              >ID&nbsp;Card&nbsp;:</label
+            >
+            <input
+              type="text"
+              id="registerIDCard"
+              name="registerIDCard"
+              class="form-control"
+              [(ngModel)]="RegisterData.idCard"
+              required
+            />
+          </div>
+
+          <!-- Password input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerPassword"
+              >Password&nbsp;:</label
+            >
+            <input
+              type="password"
+              id="registerPassword"
+              name="registerPassword"
+              class="form-control"
+              [(ngModel)]="RegisterData.password"
+              required
+            />
+          </div>
+
+          <!-- Repeat Password input -->
+          <div class="form-outline mb-1">
+            <label class="form-label" for="registerRepeatPassword"
+              >Repeat password :</label
+            >
+            <input
+              type="password"
+              id="registerRepeatPassword"
+              name="registerRepeatPassword"
+              class="form-control"
+              [(ngModel)]="RegisterData.repeatPassword"
+              required
+            />
+          </div>
+          <!-- Error text -->
+          <div class="form-outline mb-4 text-center text-danger">
+            <label>{{ errorTextReg }}</label>
+          </div>
+
+          <!-- Submit button -->
+          <button
+            type="submit"
+            class="btn btn-primary btn-block mb-3 mt-3"
+            [disabled]="!registerForm.form.valid"
+          >
+            Sign in
+          </button>
+        </form>
+      </div>
+    </ng-template>
+  </div>
+</div>
