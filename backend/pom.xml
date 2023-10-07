@@ -19,6 +19,11 @@
 	<modules>
 		<module>naming-server</module>
 		<module>mong-student</module>
+		<module>mong-report</module>
+		<module>mong-course</module>
+		<module>mong-lesson</module>
+		<module>mong-teacher</module>
+		<module>loadbalancer</module>
 	</modules>
 	
 	<dependencies>
