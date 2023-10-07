@@ -23,7 +23,7 @@ import spring.edu.monglesson.service.LessonControllerService;
 
 @RestController
 @RequestMapping("/lessons")
-@CrossOrigin(origins = "http://localhost:4200/") 
+@CrossOrigin(origins = {"http://localhost:4200/", "http://localhost:3000/"}) 
 public class LessonController {
     private final LessonControllerService lessonControllerService;
 
