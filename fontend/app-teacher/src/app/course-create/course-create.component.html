@@ -1,0 +1,55 @@
+<div
+  class="position-absolute top-50 start-50 translate-middle border border-success bg-light"
+>
+  <div class="container p-5">
+    <form #courseForm="ngForm" (ngSubmit)="addCourse()">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Course Name :</label>
+        <input
+          type="text"
+          class="form-control"
+          id="name"
+        />
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlSelect1">Category select</label>
+        <select class="form-control" id="exampleFormControlSelect1">
+          <option>1</option>
+          <option>2</option>
+          <option>3</option>
+          <option>4</option>
+          <option>5</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="exampleFormControlTextarea1">Example textarea</label>
+        <textarea
+          class="form-control"
+          id="exampleFormControlTextarea1"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Error text -->
+      <div class="form-outline mb-4 text-center text-danger">
+        <label>{{ errorText }}</label>
+      </div>
+
+      <div class="d-flex justify-content-evenly">
+        <!-- Close button -->
+        <button type="button" class="btn btn-danger btn-block mb-3 mt-3" (click)="colse()">
+          Close
+        </button>
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn btn-success btn-block mb-3 mt-3"
+          [disabled]="!courseForm.form.valid"
+        >
+          Add Course
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
