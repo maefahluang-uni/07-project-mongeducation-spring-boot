@@ -6,6 +6,8 @@ import RegisterTeacher from "./Pages/teacher/RegisterTeacher";
 import AddBank from "./Pages/service/AddBank";
 import RegisterStudent from "./Pages/teacher/RegisterStudent";
 import LoginStudent from "./Pages/student/LoginStudent";
+import Home from "./Pages/student/Home";
+import BuyCourse from "./Pages/student/BuyCourse";
 
 const userContext = React.createContext();
 
@@ -27,7 +29,9 @@ function App() {
       <userContext.Provider value={{ dataContent, setDataContent }}>
         <>
           <Routes>
+            <Route path="/" element={<Home></Home>} />
             <Route path="/Bank" element={<AddBank></AddBank>} />
+            <Route path="/BuyCourse/:id" element={<BuyCourse></BuyCourse>} />
             <Route
               path="/LoginTeacher"
               element={<LoginTeacher></LoginTeacher>}
