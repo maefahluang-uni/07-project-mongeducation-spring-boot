@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams, useNavigate,Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css";
 
 function BuyCourse() {
   const [course, setCourse] = useState({});
@@ -12,7 +14,7 @@ function BuyCourse() {
   //Check if statust is not Student
   //Check if statust is not Student
   if (dataUser.status == null) {
-    navigate("/LoginStudent");
+    navigate("/");
   }
 
   useEffect(() => {
@@ -46,7 +48,7 @@ function BuyCourse() {
         console.log("สร้างโพสต์สำเร็จ", response.data);
         // ทำอย่างอื่น ๆ หลังจากที่สร้างโพสต์เรียบร้อยแล้ว
         alert(`คุณได้ทำการซื้อคอร์ส ${course.name}`);
-        navigate("/");
+        navigate("/MyCourse");
       })
       .catch((error) => {
         console.error("เกิดข้อผิดพลาดในการสร้างโพสต์", error);
@@ -54,17 +56,30 @@ function BuyCourse() {
   };
 
   return (
-    <div>
-      <h2>รายละเอียดคอร์ส: {course.name}</h2>
-      <p>ID: {course.id}</p>
-      <p>รายละเอียด: {course.description}</p>
-      <p>ราคา: {course.price}</p>
-      <p>เครดิต: {course.credit}</p>
-      <p>หมวดหมู่: {course.categoryID}</p>
-      <p>อาจารย์ผู้สอน: {teacherName.firstName + " " + teacherName.lastName}</p>
-
-      <button onClick={handleBuyCourse}>ซื้อ</button>
+    <div className="container mt-5">
+      <div style={{ margin: "5px"}}><Link to={"/"}>ล็อคอิน</Link>&gt;<Link to={"/Home"}>หน้าหลัก</Link>&gt;<Link to={"/MyCourse"}>คอร์สของฉัน</Link></div>
+    <div className="row">
+      <div className="col-md-6 mx-auto text-center">
+        <div className="card">
+          <img
+            src="https://findstack.com/wp-content/uploads/2021/03/The-Ultimate-List-of-E-Learning-Statistics-1.png"
+            alt={course.name}
+            className="card-img-top"
+          />
+          <div className="card-body">
+            <h2 className="card-title">รายละเอียดคอร์ส: {course.name}</h2>
+            <p>ID: {course.id}</p>
+            <p>รายละเอียด: {course.description}</p>
+            <p>ราคา: {course.price}</p>
+            <p>เครดิต: {course.credit}</p>
+            <p>หมวดหมู่: {course.categoryID}</p>
+            <p>อาจารย์ผู้สอน: {teacherName.firstName} {teacherName.lastName}</p>
+            <button className="btn btn-primary" onClick={handleBuyCourse}>ซื้อ</button>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
   );
 }
 

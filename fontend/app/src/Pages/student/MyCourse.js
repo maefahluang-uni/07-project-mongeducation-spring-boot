@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link,useNavigate } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css";
+
 
 function MyCourses() {
   const [courses, setCourses] = useState([]);
@@ -8,7 +11,7 @@ function MyCourses() {
   const navigate = useNavigate();
   //Check if statust is not Student
   if(dataUser.status != "Student" || dataUser.status == null){
-      navigate("/LoginStudent");
+      navigate("/");
   }
 
   useEffect(() => {
@@ -53,16 +56,16 @@ function MyCourses() {
 
   return (
     <div>
-      <h2>คอร์สของฉัน</h2>
-      <ul>
+      <div style={{ margin: "5px"}}><Link to={"/"}>ล็อคอิน</Link>&gt;<Link to={"/Home"}>หน้าหลัก</Link>&gt;<Link to={"/MyCourse"}>คอร์สของฉัน</Link></div>
+      <h2 className="mb-4">คอร์สของฉัน</h2>
+      <ul className="list-group">
         {courses.map((course) => (
-          <Link to={`/Lesson/${course.id}`}>
-            <li key={course.id}>
-              <div>
-                ชื่อคอร์ส: {course.name} รายละเอียด: {course.description}{" "}
-                เครดิต: {course.credit}
-              </div>
-            </li>
+          <Link to={`/Lesson/${course.id}`} className="list-group-item" key={course.id}>
+            <div>
+              <h4>ชื่อคอร์ส: {course.name}</h4>
+              <p>รายละเอียด: {course.description}</p>
+              <p>เครดิต: {course.credit}</p>
+            </div>
           </Link>
         ))}
       </ul>
