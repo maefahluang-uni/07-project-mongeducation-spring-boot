@@ -11,6 +11,7 @@ import { TeacherService } from '../service/teacher.service';
 })
 export class LoginComponent implements OnInit {
   activeTab!: string;
+
   LoginData = {
     username: '',
     password: '',
@@ -25,6 +26,8 @@ export class LoginComponent implements OnInit {
   };
 
   errorText = '';
+
+  errorTextReg = '';
 
   private teacher!: Teacher;
 
@@ -49,7 +52,45 @@ export class LoginComponent implements OnInit {
   }
 
   submitRegisterForm() {
-    console.log('Register Data:', this.RegisterData);
+    if (this.RegisterData.password !== this.RegisterData.repeatPassword) {
+      this.errorTextReg = 'Password do not match';
+      return;
+    }
+    if (this.RegisterData.password.length <= 7) {
+      this.errorTextReg = 'Password must longer 8 character';
+      return;
+    }
+
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+      firstName: this.RegisterData.firstName,
+      lastName: this.RegisterData.lastName,
+      idCard: this.RegisterData.idCard,
+      userName: this.RegisterData.username,
+      passWord: this.RegisterData.password,
+    });
+
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+    };
+
+    fetch('http://localhost:8010/teachers', requestOptions)
+      .then((response) => response.text())
+      .then((result) => {
+        console.log(result);
+        this.errorTextReg = result;
+        if (result == 'created') {
+          this.showLoginPage();
+        }
+      })
+      .catch((error) => {
+        console.log('error', error);
+        this.errorTextReg = error;
+      });
   }
 
   submitLoginForm() {
