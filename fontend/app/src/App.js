@@ -8,6 +8,8 @@ import RegisterStudent from "./Pages/teacher/RegisterStudent";
 import LoginStudent from "./Pages/student/LoginStudent";
 import Home from "./Pages/student/Home";
 import BuyCourse from "./Pages/student/BuyCourse";
+import MyCourses from "./Pages/student/MyCourse";
+import Lesson from "./Pages/student/Lesson";
 
 const userContext = React.createContext();
 
@@ -31,6 +33,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home></Home>} />
             <Route path="/Bank" element={<AddBank></AddBank>} />
+            <Route path="/Lesson/:id" element={<Lesson></Lesson>} />
+            <Route path="/MyCourse" element={<MyCourses></MyCourses>} />
             <Route path="/BuyCourse/:id" element={<BuyCourse></BuyCourse>} />
             <Route
               path="/LoginTeacher"
