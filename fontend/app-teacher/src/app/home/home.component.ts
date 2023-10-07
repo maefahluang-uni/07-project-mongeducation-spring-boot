@@ -30,6 +30,10 @@ export class HomeComponent {
     }
   }
 
+  getTeacher() {
+    return this.teacher;
+  }
+
   getBar() {
     return this.bar;
   }
