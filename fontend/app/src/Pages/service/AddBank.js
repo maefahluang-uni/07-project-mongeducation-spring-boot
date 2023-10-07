@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import axios from "axios";
-import { userContext } from "../App";
+import { userContext } from "../../App";
 
 function AddBank() {
   const [bankName, setBankName] = useState("");

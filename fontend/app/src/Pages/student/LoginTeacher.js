@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
-import PopupLogin from "../Components/PopupLogin";
-import { userContext } from "../App";
+import PopupLogin from "../../Components/PopupLogin";
+import { userContext } from "../../App";
 import axios from "axios";
 import { Link } from "react-router-dom";
 
@@ -41,10 +41,10 @@ function LoginTeacher() {
         if (dataContent && typeof dataContent === "object") {
           // Update dataContent
           const updatedDataContent = {
-            id:response.data[0].id,
+            id: response.data[0].id,
             firstName: response.data[0].firstName,
             lastName: response.data[0].lastName,
-            status:"Teacher"
+            status: "Teacher",
           };
           setDataContent(updatedDataContent);
 
@@ -55,7 +55,6 @@ function LoginTeacher() {
           );
           console.log(updatedDataContent);
         }
-
       })
       .catch((error) => {
         console.error("เข้าสู่ระบบไม่สำเร็จ", error); // แสดงข้อผิดพลาด (ถ้ามี)
