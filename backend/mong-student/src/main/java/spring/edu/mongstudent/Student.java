@@ -18,17 +18,20 @@ public class Student {
 
     private String username;
     private String password;
+    
+    int port;
 
     public Student() {
     }
 
-    public Student(Long id, String firstName, String lastName, int creditUsage, String username, String password) {
+    public Student(Long id, String firstName, String lastName, int creditUsage, String username, String password, int port) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.creditUsage = creditUsage;
         this.username = username;
         this.password = password;
+        this.port = port;
     }
 
     public Long getId() {
@@ -79,5 +82,11 @@ public class Student {
         this.password = password;
     }
 
-    
+    public int getPort() {
+        return port;
+    }
+
+    public void setPort(int port) {
+        this.port = port;
+    }
 }

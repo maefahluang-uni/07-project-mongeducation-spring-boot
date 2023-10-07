@@ -4,6 +4,9 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
+        
+
+
         {
             "type": "java",
             "name": "Current File",
@@ -19,8 +22,17 @@
         },
         {
             "type": "java",
-            "name": "StudentMicroServices",
+            "name": "StudentMicroServicesLoad_1",
             "request": "launch",
+            "vmArgs": ["-Dserver.port=8000"],
+            "mainClass": "spring.edu.mongstudent.MongStudentApplication",
+            "projectName": "mong-student"
+        },
+        {
+            "type": "java",
+            "name": "StudentMicroServicesLoad_2",
+            "request": "launch",
+            "vmArgs": ["-Dserver.port=8001"],
             "mainClass": "spring.edu.mongstudent.MongStudentApplication",
             "projectName": "mong-student"
         },
@@ -51,6 +63,13 @@
             "request": "launch",
             "mainClass": "spring.edu.mongteacher.MongTeacherApplication",
             "projectName": "mong-teacher"
+        },
+        {
+            "type": "java",
+            "name": "BalancerApplication ",
+            "request": "launch",
+            "mainClass": "spring.edu.loadbalancer.LoadbalancerApplication",
+            "projectName": "loadbalancer"
         },
     ]
 }
