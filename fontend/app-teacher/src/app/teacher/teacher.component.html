@@ -3,8 +3,8 @@
     <div
       class="card m-3 btn"
       style="width: 18rem"
-      (click)="goCourse()"
       *ngFor="let course of courses"
+      (click)="goCourse(course)"
     >
       <div class="card-body">
         <h5 class="card-title">{{ course.name }}</h5>

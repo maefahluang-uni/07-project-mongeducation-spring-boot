@@ -22,11 +22,11 @@ export class TeacherComponent {
       this.home.getTeacher().id
     }`;
     this.setCourses();
-    this.getCategory('1');
   }
 
-  goCourse() {
-    this.home.pushBar(['Coursename', '/home/course']);
+  goCourse(course: Course) {
+    localStorage.setItem('course', JSON.stringify(course));
+    this.home.pushBar([course.name, '/home/course']);
     this.router.navigate(['/home/course']);
   }
 
@@ -43,7 +43,6 @@ export class TeacherComponent {
       .then((response) => response.text())
       .then((result) => {
         this.courses = JSON.parse(result);
-        console.log(this.courses);
       })
       .catch((error) => console.log('error', error));
   }
@@ -54,7 +53,7 @@ export class TeacherComponent {
       .then((response) => response.text())
       .then((result) => {
         let resultData = JSON.parse(result);
-        console.log(resultData.name);
+        return resultData.name;
       })
       .catch((error) => console.log('error', error));
   }

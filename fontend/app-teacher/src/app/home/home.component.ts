@@ -42,7 +42,11 @@ export class HomeComponent {
 
   pushBar(itemBar: string[]) {
     this.bar.push(itemBar);
-    console.log(JSON.stringify(this.getBar()));
+    localStorage.setItem('bar', JSON.stringify(this.getBar()));
+  }
+
+  popBar() {
+    this.bar.pop();
     localStorage.setItem('bar', JSON.stringify(this.getBar()));
   }
 
