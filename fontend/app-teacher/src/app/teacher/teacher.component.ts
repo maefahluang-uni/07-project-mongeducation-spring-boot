@@ -57,4 +57,12 @@ export class TeacherComponent {
       })
       .catch((error) => console.log('error', error));
   }
+
+  getTeacherName() {
+    return this.home.getTeacher().userName;
+  }
+
+  addCourse(){
+    
+  }
 }
