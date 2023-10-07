@@ -74,6 +74,8 @@ export class HomeComponent {
 
   logout() {
     localStorage.removeItem('teacher')
+    localStorage.removeItem('course')
+    localStorage.removeItem('bar')
     this.navigatePage('/')
   }
 }
