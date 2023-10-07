@@ -2,14 +2,13 @@ import React, { useState, useContext } from "react";
 import PopupLogin from "../../Components/PopupLogin";
 import { userContext } from "../../App";
 import axios from "axios";
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 function LoginTeacher() {
   // set state
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
   const { dataContent, setDataContent } = useContext(userContext);
-  const navigate = useNavigate("");
 
   // set event
   const handleSubmit = (e) => {
@@ -55,9 +54,6 @@ function LoginTeacher() {
             JSON.stringify(updatedDataContent)
           );
           console.log(updatedDataContent);
-
-          // navigate to home
-          navigate("/")
         }
       })
       .catch((error) => {
