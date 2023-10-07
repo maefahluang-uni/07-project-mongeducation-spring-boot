@@ -15,6 +15,15 @@ export class CourseCreateComponent {
   categoryService: CategoryService = inject(CategoryService);
   categories!: Category[];
 
+  courseData = {
+    name: '',
+    description: '',
+    price: 0.0,
+    credit: 2,
+    categoryID: '1',
+    teacherID: '',
+  };
+
   errorText = '';
 
   constructor(private teacher: TeacherComponent) {
@@ -32,5 +41,30 @@ export class CourseCreateComponent {
     this.home.navigatePage('/home/teacher');
     this.teacher.blur = false;
   }
-  addCourse() {}
+
+  addCourse() {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var raw = JSON.stringify({
+      name: 'na',
+      description: null,
+      price: 0,
+      credit: 0,
+      categoryID: null,
+      teacherID: null,
+    });
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+      body: raw,
+    };
+
+    fetch('http://localhost:8020/courses', requestOptions)
+      .then((response) => response.text())
+      .then((result) => console.log(result))
+      .catch((error) => console.log('error', error));
+    this.teacher.setCourses();
+  }
 }
