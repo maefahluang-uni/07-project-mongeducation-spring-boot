@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
 
 function MyCourses() {
   const [courses, setCourses] = useState([]);
   const dataUser = JSON.parse(localStorage.getItem("dataContent"));
-
+  const navigate = useNavigate();
   //Check if statust is not Student
   if(dataUser.status != "Student" || dataUser.status == null){
       navigate("/LoginStudent");
