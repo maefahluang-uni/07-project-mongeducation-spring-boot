@@ -9,11 +9,13 @@ function Home() {
   const [content, setContent] = useState([]);
   const [nameCategory, setNameCategory] = useState('');
   const navigate = useNavigate();
+  
 
   const dataUser = JSON.parse(localStorage.getItem("dataContent"));
-  if(dataUser.id == null){
-    navigate("/LoginTeacher")
-  }
+    //Check if statust is not Student
+    if(dataUser.status == null){
+        navigate("/LoginStudent");
+    }
 
   useEffect(() => {
     // เรียกใช้ API เพื่อดึงข้อมูลหมวดหมู่

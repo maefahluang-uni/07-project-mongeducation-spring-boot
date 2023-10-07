@@ -6,6 +6,11 @@ function MyCourses() {
   const [courses, setCourses] = useState([]);
   const dataUser = JSON.parse(localStorage.getItem("dataContent"));
 
+  //Check if statust is not Student
+  if(dataUser.status != "Student" || dataUser.status == null){
+      navigate("/LoginStudent");
+  }
+
   useEffect(() => {
     axios
       .get("http://localhost:8070/reports")

@@ -1,10 +1,16 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {useParams} from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 function Lesson() {
   const [lessons, setLessons] = useState([]); // เก็บข้อมูลบทเรียนที่ได้จาก API
-  const {id} = useParams();
+  const { id } = useParams();
+
+  //Check if statust is not Student
+  if (dataUser.status == null) {
+    navigate("/LoginStudent");
+  }
+
   useEffect(() => {
     // ส่งคำขอไปยัง API เพื่อดึงข้อมูลบทเรียน
     axios
