@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import {Link,useNavigate} from "react-router-dom";
-import "../../Css/home.css"
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css";
 
 function Home() {
   const [categories, setCategories] = useState([]);
@@ -14,7 +15,7 @@ function Home() {
   const dataUser = JSON.parse(localStorage.getItem("dataContent"));
     //Check if statust is not Student
     if(dataUser.status == null){
-        navigate("/LoginStudent");
+        navigate("/");
     }
 
   useEffect(() => {
@@ -47,31 +48,40 @@ function Home() {
   };
 
   return (
-    <div>
+    <div className="container">
+      <div style={{ margin: "5px"}}><Link to={"/"}>ล็อคอิน</Link>&gt;<Link to={"/Home"}>หน้าหลัก</Link>&gt;<Link to={"/MyCourse"}>คอร์สของฉัน</Link></div>
       <header>
-        {/* Dropdown ด้านบน */}
-        <select onChange={handleCategoryChange}>
-          <option value="null">กรุณาเลือกหมวดหมู่</option>
-          {categories.map(category => (
-            <option key={category.id} value={category.id}>{category.name}</option>
-          ))}
-        </select>
+        <div className="row">
+          <div className="col">
+            {/* Dropdown ด้านบน */}
+            <select className="form-select" onChange={handleCategoryChange}>
+              <option value="null">กรุณาเลือกหมวดหมู่</option>
+              {categories.map(category => (
+                <option key={category.id} value={category.id}>{category.name}</option>
+              ))}
+            </select>
+          </div>
+        </div>
       </header>
       <main>
         {/* รายการหมวดหมู่ด้านล่าง */}
         <div>
           <h2>หมวดหมู่ที่เลือก: {nameCategory || 'กรุณาเลือกหมวดหมู่'}</h2>
-          <ul className='main'>
+          <div className="row">
             {content.map(item => (
-              <li key={item.id} className='card'>
-                <Link to={`/BuyCourse/${item.id}`}>
-                <img src='https://findstack.com/wp-content/uploads/2021/03/The-Ultimate-List-of-E-Learning-Statistics-1.png'></img>
-                <div className="Products__name">{item.name}</div>
-                <div className="Products__price">{item.price}</div>
-                </Link>
-              </li>
+              <div key={item.id} className="col-md-4 mb-4">
+                <div className="card">
+                  <Link to={`/BuyCourse/${item.id}`}>
+                    <img src="https://findstack.com/wp-content/uploads/2021/03/The-Ultimate-List-of-E-Learning-Statistics-1.png" className="card-img-top" alt="Course" />
+                    <div className="card-body">
+                      <h5 className="card-title">{item.name}</h5>
+                      <p className="card-text">Price: {item.price}</p>
+                    </div>
+                  </Link>
+                </div>
+              </div>
             ))}
-          </ul>
+          </div>
         </div>
       </main>
     </div>

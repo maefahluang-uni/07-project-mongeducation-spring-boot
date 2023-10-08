@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams,useNavigate,Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import "./index.css";
 
 function Lesson() {
   const [lessons, setLessons] = useState([]); // เก็บข้อมูลบทเรียนที่ได้จาก API
@@ -28,13 +30,20 @@ function Lesson() {
   }, []); // ค่าว่างใน dependencies หมายถึงให้เรียก API เมื่อคอมโพเนนต์ถูกโหลดครั้งแรกเท่านั้น
 
   return (
-    <div>
-      <h2>บทเรียน</h2>
-      {lessons.map((lesson) => (
-        <div key={lesson.id}>
-          <p>{lesson.name}</p>
-        </div>
-      ))}
+    <div className="container">
+      <div style={{ margin: "5px"}}><Link to={"/"}>ล็อคอิน</Link>&gt;<Link to={"/Home"}>หน้าหลัก</Link>&gt;<Link to={"/MyCourse"}>คอร์สของฉัน</Link></div>
+      <h2 className="my-4">บทเรียน</h2>
+      <div className="list-group">
+        {lessons.map((lesson) => (
+          <a
+            href="#" // หรือใช้ Link ของ react-router-dom ตามที่คุณต้องการ
+            className="list-group-item list-group-item-action"
+            key={lesson.id}
+          >
+            {lesson.name}
+          </a>
+        ))}
+      </div>
     </div>
   );
 }
