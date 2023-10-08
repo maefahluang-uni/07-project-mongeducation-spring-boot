@@ -9,9 +9,10 @@ import { LoginComponent } from './login/login.component';
 import { TeacherService } from './service/teacher.service';
 import { TeacherComponent } from './teacher/teacher.component';
 import { TeacherCourseComponent } from './teacher-course/teacher-course.component';
+import { CourseCreateComponent } from './course-create/course-create.component';
 
 @NgModule({
-  declarations: [AppComponent, HomeComponent, LoginComponent, TeacherComponent, TeacherCourseComponent],
+  declarations: [AppComponent, HomeComponent, LoginComponent, TeacherComponent, TeacherCourseComponent, CourseCreateComponent],
   imports: [BrowserModule, FormsModule, AppRoutingModule],
   providers: [TeacherService],
   bootstrap: [AppComponent],

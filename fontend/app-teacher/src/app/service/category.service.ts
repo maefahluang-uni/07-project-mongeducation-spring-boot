@@ -17,4 +17,16 @@ export class CategoryService {
 
     return await fetch(this.url + id, requestOptions);
   }
+
+  async getCategories() {
+    var myHeaders = new Headers();
+    myHeaders.append('Content-Type', 'application/json');
+
+    var requestOptions = {
+      method: 'GET',
+      headers: myHeaders,
+    };
+
+    return await fetch(this.url, requestOptions);
+  }
 }

@@ -1,0 +1,95 @@
+<div
+  class="position-absolute top-50 start-50 translate-middle border border-success bg-light"
+>
+  <div class="container p-5">
+    <form #courseForm="ngForm" (ngSubmit)="addCourse()">
+      <div class="form-group">
+        <label for="courseName">Course Name :</label>
+        <input
+          type="text"
+          class="form-control"
+          id="courseName"
+          name="courseName"
+          [(ngModel)]="courseData.name"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="categoryOdCourse">Category select</label>
+        <select
+          class="form-control"
+          id="categoryOdCourse"
+          name="categoryOdCourse"
+          [(ngModel)]="courseData.categoryID"
+          required
+        >
+          <option *ngFor="let category of categories" [value]="category.id">
+            {{ category.name }}
+          </option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description textarea</label>
+        <textarea
+          class="form-control"
+          id="description"
+          name="description"
+          rows="3"
+          [(ngModel)]="courseData.description"
+          required
+        ></textarea>
+      </div>
+
+      <div class="form-group">
+        <label for="coursePrice">Course Price :</label>
+        <input
+          type="text"
+          class="form-control"
+          id="coursePrice"
+          name="coursePrice"
+          [(ngModel)]="courseData.price"
+          required
+        />
+      </div>
+      <div class="form-group">
+        <label for="courseCredit">Course Credit</label>
+        <select
+          class="form-control"
+          id="courseCredit"
+          name="courseCredit"
+          [(ngModel)]="courseData.credit"
+          required
+        >
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="5">5</option>
+        </select>
+      </div>
+
+      <!-- Error text -->
+      <div class="form-outline mb-4 text-center text-danger">
+        <label>{{ errorText }}</label>
+      </div>
+
+      <div class="d-flex justify-content-evenly">
+        <!-- Close button -->
+        <button
+          type="button"
+          class="btn btn-danger btn-block mb-3 mt-3"
+          (click)="colse()"
+        >
+          Close
+        </button>
+        <!-- Submit button -->
+        <button
+          type="submit"
+          class="btn btn-success btn-block mb-3 mt-3"
+          [disabled]="!courseForm.form.valid"
+        >
+          Add Course
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

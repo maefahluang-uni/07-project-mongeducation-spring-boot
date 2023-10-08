@@ -4,6 +4,8 @@ import { TeacherService } from '../service/teacher.service';
 import { HomeComponent } from '../home/home.component';
 import { Course } from '../model/course';
 import { CategoryService } from '../service/category.service';
+import { Category } from '../model/category';
+import { find } from 'rxjs';
 
 @Component({
   selector: 'app-teacher',
@@ -11,23 +13,33 @@ import { CategoryService } from '../service/category.service';
   styleUrls: ['./teacher.component.css'],
 })
 export class TeacherComponent {
+  blur!: boolean;
   private url = '';
   courses: Course[] = [];
+  categories: Category[] = [];
 
   private home: HomeComponent = inject(HomeComponent);
   private cate: CategoryService = inject(CategoryService);
 
-  constructor(private router: Router) {
+  constructor() {
+    const b = localStorage.getItem('blur');
+    if (b == 'true') {
+      this.blur = Boolean(b);
+    } else {
+      this.blur = false;
+    }
+
     this.url = `http://localhost:8020/courses/teacher/${
       this.home.getTeacher().id
     }`;
     this.setCourses();
+    this.setCategory();
   }
 
   goCourse(course: Course) {
     localStorage.setItem('course', JSON.stringify(course));
     this.home.pushBar([course.name, '/home/course']);
-    this.router.navigate(['/home/course']);
+    this.home.navigatePage('/home/course');
   }
 
   setCourses() {
@@ -47,14 +59,34 @@ export class TeacherComponent {
       .catch((error) => console.log('error', error));
   }
 
-  getCategory(id: string) {
+  setCategory() {
     this.cate
-      .getCategoryById(id)
+      .getCategories()
       .then((response) => response.text())
       .then((result) => {
-        let resultData = JSON.parse(result);
-        return resultData.name;
+        this.categories = JSON.parse(result);
       })
       .catch((error) => console.log('error', error));
+  }
+
+  getCategoryName(courseID: string) {
+    const name = this.categories.find(
+      (category) => category.id == Number(courseID)
+    );
+    return name?.name;
+  }
+
+  getTeacherName() {
+    return this.home.getTeacher().userName;
+  }
+
+  getTeacherID() {
+    return this.home.getTeacher().id;
+  }
+
+  addCourse() {
+    this.blur = true;
+    localStorage.setItem('blur', 'true');
+    this.home.navigatePage('/home/teacher/create');
   }
 }
