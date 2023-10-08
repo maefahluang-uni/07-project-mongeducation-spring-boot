@@ -4,6 +4,7 @@
 
 This is a group project to learning about how to develop the backend using a springboot framework. we've learn various topic like entity relational, loadbalancer, kafka and microservices. Now we use these knowledege and integrate them in our project of e-education system.
 
+here is a video for project review https://youtu.be/Rngf3Gt5WsQ
 
 
 
